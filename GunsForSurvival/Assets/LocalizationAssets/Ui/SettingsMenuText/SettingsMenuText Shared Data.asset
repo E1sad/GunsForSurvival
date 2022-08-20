@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: SettingsMenuText Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: SettingsMenuText
+  m_TableCollectionNameGuidString: f283de8e9876047449f3b7f6f379f4cd
+  m_Entries:
+  - m_Id: 17272233984
+    m_Key: MusicText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 151515127808
+    m_Key: SoundText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 257681350656
+    m_Key: LanguageText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 358713745408
+    m_Key: BackButton
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    id: 0
+  references:
+    version: 1
+    00000000:
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1660831341933
