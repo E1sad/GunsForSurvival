@@ -19,5 +19,7 @@ namespace SOG.GamePlayUi.Views
     [SerializeField] private TMP_Text dailyDemand;
     [SerializeField] private Image successfulImage;
     [SerializeField] private Image failedImage;
+
+
   }
 }
