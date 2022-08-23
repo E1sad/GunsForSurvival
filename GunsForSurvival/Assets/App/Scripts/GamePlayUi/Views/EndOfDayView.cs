@@ -17,8 +17,73 @@ namespace SOG.GamePlayUi.Views
     [SerializeField] private TMP_Text allMoney;
     [SerializeField] private TMP_Text dailyGain;
     [SerializeField] private TMP_Text dailyDemand;
-    [SerializeField] private Image successfulImage;
-    [SerializeField] private Image failedImage;
+    [SerializeField] private GameObject successfulImage;
+    [SerializeField] private GameObject failedImage;
+
+    public void OnNextDayButtonPressed()
+    {
+      controller.OnNextDayButtonPressed();
+    }
+
+    public void OnMenuButtonPressed()
+    {
+      controller.OnMenuButtonPressed();
+    }
+
+    public void OnSettingsButtonPressed()
+    {
+      controller.OnSettingsButtonPressed();
+    }
+
+    public void OnFactoryUpgradesButtonPressed()
+    {
+      controller.OnFactoryUpgradesButtonPressed();
+    }
+
+    public void OnPersonalUpgradesButtonPressed()
+    {
+      controller.OnPersonalUpgradesButtonPressed();
+    }
+
+    public void SetActiveSuccessfulImage()
+    {
+      successfulImage.SetActive(true);
+    }
+
+    public void SetDeactiveSuccessfulImage()
+    {
+      successfulImage.SetActive(false);
+    }
+
+    public void SetActiveFailedImage()
+    {
+      failedImage.SetActive(true);
+    }
+
+    public void SetDeactiveFailedImage()
+    {
+      failedImage.SetActive(false);
+    }
+
+    public void SetDayCount(int day)
+    {
+      dayCount.text = "Day " + day;
+    }
+
+    public void SetAllMoney(int _allMoney)
+    {
+      allMoney.text = "Total money: " + _allMoney;
+    }
+
+    public void SetDailyGain(int gain)
+    {
+      dailyGain.text = "Daily gain: " + gain;
+    }
+
+    public void SetDailyDemand(int demand, int obtained)
+    {
+      dailyDemand.text = "Daily demand: " + obtained + "/" + demand;
+    }
 
 
   }
