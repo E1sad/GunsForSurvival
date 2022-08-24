@@ -3,35 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using SOG.MenuUI.Controllers;
 
-public class MainMenuView : MonoBehaviour
+namespace SOG.MenuUI.Views
 {
-  [Header ("Controller reference")]
-  [SerializeField] private MainMenuController controller;
-
-  [Header("View properties")]
-  [SerializeField] private Button playButton;
-  [SerializeField] private Button settingsButton;
-  [SerializeField] private Button creditsButton;
-  [SerializeField] private Button quitButton;
-
-  public void OnPlayButtonPressed()
+  public class MainMenuView : MonoBehaviour
   {
-    SceneManager.LoadScene(1);
-  }
+    [Header("Controller reference")]
+    [SerializeField] private MainMenuController controller;
 
-  public void OnSettingsButtonPressed()
-  {
-    controller.OnSettingsButtonPressed();
-  }
+    [Header("View properties")]
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button settingsButton;
+    [SerializeField] private Button creditsButton;
+    [SerializeField] private Button quitButton;
 
-  public void OnCreditButtonPressed()
-  {
-    controller.OnCreditsButtonPressed();
-  }
+    public void OnPlayButtonPressed()
+    {
+      SceneManager.LoadScene(1);
+    }
 
-  public void OnQuitButtonPressed()
-  {
-    Application.Quit();
+    public void OnSettingsButtonPressed()
+    {
+      controller.OnSettingsButtonPressed();
+    }
+
+    public void OnCreditButtonPressed()
+    {
+      controller.OnCreditsButtonPressed();
+    }
+
+    public void OnQuitButtonPressed()
+    {
+      Application.Quit();
+    }
   }
 }

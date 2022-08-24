@@ -15,12 +15,13 @@ namespace SOG.GamePlayUi.Controllers
 
     public void OnNextDayButtonPressed()
     {
+      view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnNextDayButtonPressendEvent());
-      Debug.Log("Next Day!!!");
     }
 
     public void OnMenuButtonPressed()
     {
+      view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnMenuButtonPressedEvent());
       Debug.Log("Menu!!!");
       SceneManager.LoadScene(0);
@@ -28,18 +29,21 @@ namespace SOG.GamePlayUi.Controllers
 
     public void OnSettingsButtonPressed()
     {
+      view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnSettingsButtonPressedEvent());
       Debug.Log("Settings!!!");
     }
 
     public void OnFactoryUpgradesButtonPressed()
     {
+      view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnFactoryUpgradesButtonPressedEvent());
       Debug.Log("FactoryUpgrades!!!");
     }
 
     public void OnPersonalUpgradesButtonPressed()
     {
+      view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnPersonalUpgradesButtonPressedEvent());
       Debug.Log("PersonalUpgrades!!!");
     }
@@ -48,12 +52,13 @@ namespace SOG.GamePlayUi.Controllers
     #region Unity Events
     private void OnEnable()
     {
-      
+      EventManager.Instance.AddListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
     }
 
     private void OnDisable()
     {
-      
+      EventManager.Instance.RemoveListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
+
     }
     #endregion
 
@@ -61,6 +66,10 @@ namespace SOG.GamePlayUi.Controllers
 
     #region Event Handlers
 
+    private void OnShopsBackbuttonPressedEventHandler(OnShopsBackbuttonPressedEvent eventDetails)
+    {
+      view.SetActiveEndOfDayView(true);
+    }
 
     #endregion
 

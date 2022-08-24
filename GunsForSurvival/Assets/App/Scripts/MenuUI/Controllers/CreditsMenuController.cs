@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DynamicBox.EventManagement;
-using SOG.UI.Views;
-using SOG.UI.Events.CreditsMenu;
+using SOG.MenuUI.Views;
+using SOG.MenuUI.Events.CreditsMenu;
+using SOG.MenuUI.Events;
 
-namespace SOG.UI.Controllers
+namespace SOG.MenuUI.Controllers
 {
   public class CreditsMenuController : MonoBehaviour
   {

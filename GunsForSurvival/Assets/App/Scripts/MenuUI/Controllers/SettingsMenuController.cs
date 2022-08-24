@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DynamicBox.EventManagement;
-using SOG.UI.Views;
-using SOG.UI.Events.SettingsMenu;
+using SOG.MenuUI.Views;
+using SOG.MenuUI.Events.SettingsMenu;
+using SOG.MenuUI.Events;
 using SOG.Localization.Event;
-namespace SOG.UI.Controllers
+namespace SOG.MenuUI.Controllers
 {
   public class SettingsMenuController : MonoBehaviour
   {

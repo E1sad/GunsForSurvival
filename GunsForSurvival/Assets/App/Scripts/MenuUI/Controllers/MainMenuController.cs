@@ -2,20 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DynamicBox.EventManagement;
+using SOG.MenuUI.Views;
+using SOG.MenuUI.Events;
 
-public class MainMenuController : MonoBehaviour
+namespace SOG.MenuUI.Controllers
 {
-  [Header ("View reference")]
-  [SerializeField] private MainMenuView view;
-
-  public void OnSettingsButtonPressed()
+  public class MainMenuController : MonoBehaviour
   {
-    EventManager.Instance.Raise(new OnSettingsButtonPressedEvent());
-  }
+    [Header("View reference")]
+    [SerializeField] private MainMenuView view;
 
-  public void OnCreditsButtonPressed()
-  {
-    EventManager.Instance.Raise(new OnCreditsButtonPressedEvent());
-  }
+    public void OnSettingsButtonPressed()
+    {
+      EventManager.Instance.Raise(new OnSettingsButtonPressedEvent());
+    }
 
+    public void OnCreditsButtonPressed()
+    {
+      EventManager.Instance.Raise(new OnCreditsButtonPressedEvent());
+    }
+
+  }
 }

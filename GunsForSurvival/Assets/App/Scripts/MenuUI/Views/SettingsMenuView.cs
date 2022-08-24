@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using SOG.UI.Controllers;
+using SOG.MenuUI.Controllers;
 
-namespace SOG.UI.Views
+namespace SOG.MenuUI.Views
 {
   public class SettingsMenuView : MonoBehaviour
   {

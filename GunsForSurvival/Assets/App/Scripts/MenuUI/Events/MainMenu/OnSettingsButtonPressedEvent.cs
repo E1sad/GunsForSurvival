@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using DynamicBox.EventManagement;
 
-public class OnSettingsButtonPressedEvent : GameEvent
+namespace SOG.MenuUI.Events
 {
+  public class OnSettingsButtonPressedEvent : GameEvent
+  {
 
+  }
 }

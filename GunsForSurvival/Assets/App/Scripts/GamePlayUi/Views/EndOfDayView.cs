@@ -85,6 +85,9 @@ namespace SOG.GamePlayUi.Views
       dailyDemand.text = "Daily demand: " + obtained + "/" + demand;
     }
 
-
+    public void SetActiveEndOfDayView(bool Is)
+    {
+      gameObject.SetActive(Is);
+    }
   }
 }

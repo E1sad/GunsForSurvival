@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DynamicBox.EventManagement;
 
-namespace SOG.UI.Events.SettingsMenu
+namespace SOG.MenuUI.Events.SettingsMenu
 {
   public class OnBackButtonPressed : GameEvent
   {

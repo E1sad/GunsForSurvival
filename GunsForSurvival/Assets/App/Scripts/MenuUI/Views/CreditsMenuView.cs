@@ -1,10 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using SOG.UI.Controllers;
+using SOG.MenuUI.Controllers;
 using UnityEngine.UI;
 
-namespace SOG.UI.Views
+namespace SOG.MenuUI.Views
 {
   public class CreditsMenuView : MonoBehaviour
   {

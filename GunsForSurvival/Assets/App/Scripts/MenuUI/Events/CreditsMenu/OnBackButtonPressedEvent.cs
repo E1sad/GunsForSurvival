@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SOG.UI.Events.CreditsMenu
+namespace SOG.MenuUI.Events.CreditsMenu
 {
   public class OnBackButtonPressedEvent : GameEvent
   {

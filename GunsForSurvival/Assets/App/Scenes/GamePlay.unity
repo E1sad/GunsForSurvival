@@ -723,9 +723,9 @@ RectTransform:
   m_Father: {fileID: 1277841583}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 277.5, y: -540}
   m_SizeDelta: {x: 355, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &387292765
@@ -771,7 +771,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 387292766}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1310173899}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.FactoryShopView, Assembly-CSharp
+        m_MethodName: OnNewEmployeeButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &387292766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -892,9 +904,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1310173899}
-        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.FactoryShopView, Assembly-CSharp
-        m_MethodName: OnPressedBackbutton
+      - m_Target: {fileID: 74673580}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.PersonalShopView, Assembly-CSharp
+        m_MethodName: OnBackButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1159,9 +1171,9 @@ RectTransform:
   m_Father: {fileID: 1277841583}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1642.5, y: -540}
   m_SizeDelta: {x: 355, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &776514376
@@ -1207,7 +1219,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 776514377}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1310173899}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.FactoryShopView, Assembly-CSharp
+        m_MethodName: OnFactorySizeButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &776514377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1396,7 +1420,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &815239278
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1763,7 +1787,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 937353186}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 74673580}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.PersonalShopView, Assembly-CSharp
+        m_MethodName: OnManagementButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &937353186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1967,9 +2003,9 @@ RectTransform:
   m_Father: {fileID: 1277841583}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1187.5, y: -540}
   m_SizeDelta: {x: 355, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082610328
@@ -2015,7 +2051,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1082610329}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1310173899}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.FactoryShopView, Assembly-CSharp
+        m_MethodName: OnBagButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1082610329
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2506,7 +2554,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1310173898
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2792,7 +2840,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1426474300}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 74673580}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.PersonalShopView, Assembly-CSharp
+        m_MethodName: OnSpeedGymButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1426474300
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3014,7 +3074,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1461970844}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 74673580}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.PersonalShopView, Assembly-CSharp
+        m_MethodName: OnSatisfactoryButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1461970844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3086,9 +3158,9 @@ RectTransform:
   m_Father: {fileID: 1277841583}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 732.5, y: -540}
   m_SizeDelta: {x: 355, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1651310025
@@ -3134,7 +3206,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1651310026}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1310173899}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.FactoryShopView, Assembly-CSharp
+        m_MethodName: OnEmployeeCourseButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1651310026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3544,7 +3628,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1985568079}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 74673580}
+        m_TargetAssemblyTypeName: SOG.GamePlayUi.Views.PersonalShopView, Assembly-CSharp
+        m_MethodName: OnEngineringButtonPressed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1985568079
 MonoBehaviour:
   m_ObjectHideFlags: 0
