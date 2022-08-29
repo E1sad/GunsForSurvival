@@ -18,8 +18,6 @@ namespace SOG.Characters.Player
       float verticalInput = SimpleInput.GetAxis("Vertical");
 
       playerRb.velocity = ((transform.up * verticalInput * speed) + (transform.right * horizontalInput * speed))*Time.deltaTime;
-
-
     }
 
 
