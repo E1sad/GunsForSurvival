@@ -8,6 +8,8 @@ namespace SOG.Characters.Player
   {
     [Header("Link refenrece")]
     [SerializeField] private Rigidbody2D playerRb;
+    [SerializeField] private Animator playerAnimator;
+
 
     [Header("Parameters")]
     [SerializeField] private float speed;
@@ -16,6 +18,8 @@ namespace SOG.Characters.Player
     {
       float horizontalInput = SimpleInput.GetAxis("Horizontal");
       float verticalInput = SimpleInput.GetAxis("Vertical");
+
+      
 
       playerRb.velocity = ((transform.up * verticalInput * speed) + (transform.right * horizontalInput * speed))*Time.deltaTime;
     }

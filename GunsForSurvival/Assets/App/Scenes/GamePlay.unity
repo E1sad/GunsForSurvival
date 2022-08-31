@@ -4784,6 +4784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerRb: {fileID: 1686743482}
+  playerAnimator: {fileID: 665500585}
   speed: 1000
 --- !u!1 &1884544088
 GameObject:
