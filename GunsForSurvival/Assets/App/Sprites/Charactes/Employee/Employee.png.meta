@@ -1,37 +1,13 @@
 fileFormatVersion: 2
-guid: f1c486a3977af954cbbe4b0fa260dda3
+guid: 6c3e1e5da3d53ce40b6b09d0c05ec8a5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7183652977584247355
-    second: BackwardDiagonal_0
+      213: -6482938361290169228
+    second: Employee_0
   - first:
-      213: -8756252772832857005
-    second: BackwardDiagonal_1
-  - first:
-      213: -2318844752374028454
-    second: BackwardDiagonal_2
-  - first:
-      213: 3117741689200510492
-    second: BackwardDiagonal_3
-  - first:
-      213: -4324686406009165367
-    second: BackwardDiagonal_4
-  - first:
-      213: -871346728056653558
-    second: BackwardDiagonal_5
-  - first:
-      213: 8462566030252700028
-    second: BackwardDiagonal_6
-  - first:
-      213: 3731554817954525624
-    second: BackwardDiagonal_7
-  - first:
-      213: -1427509748256142026
-    second: BackwardDiagonal_8
-  - first:
-      213: 4072893279641556121
-    second: BackwardDiagonal_9
+      213: 752928300251578721
+    second: Employee_1
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -157,13 +133,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BackwardDiagonal_0
+      name: Employee_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 150
-        width: 498
-        height: 740
+        x: 112
+        y: 13
+        width: 304
+        height: 715
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5cde9617da98e4c90800000000000000
-      internalID: -7183652977584247355
+      spriteID: 474eb8298e9f706a0800000000000000
+      internalID: -6482938361290169228
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: BackwardDiagonal_1
+      name: Employee_1
       rect:
         serializedVersion: 2
-        x: 498
-        y: 150
-        width: 498
-        height: 740
+        x: 680
+        y: 301
+        width: 89
+        height: 91
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -192,71 +168,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 354b4c7ee7a8b7680800000000000000
-      internalID: -8756252772832857005
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackwardDiagonal_2
-      rect:
-        serializedVersion: 2
-        x: 996
-        y: 150
-        width: 498
-        height: 740
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a57a775cbfec1dfd0800000000000000
-      internalID: -2318844752374028454
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackwardDiagonal_3
-      rect:
-        serializedVersion: 2
-        x: 1494
-        y: 150
-        width: 498
-        height: 740
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c16093e3c81744b20800000000000000
-      internalID: 3117741689200510492
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: BackwardDiagonal_4
-      rect:
-        serializedVersion: 2
-        x: 1992
-        y: 150
-        width: 499
-        height: 740
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9c9ecdc70a0abf3c0800000000000000
-      internalID: -4324686406009165367
+      spriteID: 16185d5cc40f27a00800000000000000
+      internalID: 752928300251578721
       vertices: []
       indices: 
       edges: []
