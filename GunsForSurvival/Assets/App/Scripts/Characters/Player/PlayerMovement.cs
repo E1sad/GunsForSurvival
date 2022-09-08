@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using SOG.GamePlay.Inventory;
 
 namespace SOG.Characters.Player
 {
@@ -13,6 +14,8 @@ namespace SOG.Characters.Player
 
     [Header("Parameters")]
     [SerializeField] private float speed;
+    
+
 
     private void Movement()
     {
@@ -47,8 +50,6 @@ namespace SOG.Characters.Player
 
     
     }
-
-
     private void Update()
     {
       Movement();
