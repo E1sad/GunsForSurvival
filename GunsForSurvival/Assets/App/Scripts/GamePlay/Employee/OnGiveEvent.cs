@@ -1,18 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using DynamicBox.EventManagement;
 
-public class OnGiveEvent : MonoBehaviour
+namespace SOG.GamePlay.Employee
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+  public class OnGiveEvent : GameEvent
+  {
+    public ItemType item;
 
-    // Update is called once per frame
-    void Update()
+    public int amount;
+
+    public OnGiveEvent(ItemType _item, int _amount)
     {
-        
+      item = _item;
+
+      amount = _amount;
     }
+  }
 }

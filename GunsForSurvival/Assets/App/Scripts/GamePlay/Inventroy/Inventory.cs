@@ -65,9 +65,9 @@ namespace SOG.GamePlay.Inventory
           }
           else if (itemList[i].GetAmount() == 1)
           {
-            itemList.Remove(itemList[i]);
-
             Debug.Log("Removed " + itemList[i].GetItemType());
+
+            itemList.Remove(itemList[i]);
           }
         }
       }
