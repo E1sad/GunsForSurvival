@@ -17,6 +17,11 @@ namespace SOG.GamePlay.Inventory
       isContain = false;
     }
 
+    public List<Item> GetItemList()
+    {
+      return itemList;
+    }
+
     public void AddItem(ItemType itemType, int amount)
     {
 

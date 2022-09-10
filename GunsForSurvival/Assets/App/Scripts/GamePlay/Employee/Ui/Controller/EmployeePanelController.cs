@@ -38,12 +38,18 @@ namespace SOG.GamePlay.Employee.Ui
     {
       EventManager.Instance.AddListener<OnEmployeeBagButtonPressedEvent>(OnEmployeeBagButtonPressedEventHandler);
       EventManager.Instance.AddListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
+      EventManager.Instance.AddListener<FullResourceEvent>(FullResourceEventHandler);
+      EventManager.Instance.AddListener<TriggerExitResetResourcesEvent>(TriggerExitResetResourcesEventHandler);
+      
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnEmployeeBagButtonPressedEvent>(OnEmployeeBagButtonPressedEventHandler);
       EventManager.Instance.RemoveListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
+      EventManager.Instance.RemoveListener<FullResourceEvent>(FullResourceEventHandler);
+      EventManager.Instance.RemoveListener<TriggerExitResetResourcesEvent>(TriggerExitResetResourcesEventHandler);
+      
     }
     #endregion
 
@@ -57,6 +63,18 @@ namespace SOG.GamePlay.Employee.Ui
     {
       view.SetActivePanel(false);
     }
+
+    private void FullResourceEventHandler(FullResourceEvent eventDetails)
+    {
+      view.SetInteractable(eventDetails.item, false);
+    }
+
+    private void TriggerExitResetResourcesEventHandler(TriggerExitResetResourcesEvent eventDetails)
+    {
+      view.ResetInteractable(true);
+    }
+
+
     #endregion
 
   }

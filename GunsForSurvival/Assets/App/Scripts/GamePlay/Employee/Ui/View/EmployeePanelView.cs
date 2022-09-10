@@ -1,3 +1,4 @@
+using SOG.GamePlay.Inventory;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,6 +40,41 @@ namespace SOG.GamePlay.Employee.Ui
     public void SetActivePanel(bool active)
     {
       gameObject.SetActive(active);
+    }
+    
+    public void SetInteractable(ItemType item, bool active)
+    {
+      switch (item)
+      {
+        case ItemType.WOOD:
+          woodButton.interactable = active;
+          break;
+
+        case ItemType.IRON:
+          ironButton.interactable = active;
+          break;
+
+        case ItemType.ALUMINUM:
+          aluminumButton.interactable = active;
+          break;
+
+        case ItemType.CHOCOLATE:
+          choclateButton.interactable = active;
+          break;
+      }
+    }
+
+    public void ResetInteractable(bool active)
+    {
+      woodButton.interactable = active;
+      ironButton.interactable = active;
+      aluminumButton.interactable = active;
+      choclateButton.interactable = active;
+    }
+
+    public void ResourcesFromInventory(List<Item> inventoryList)
+    {
+
     }
 
   }
