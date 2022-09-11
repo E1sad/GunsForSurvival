@@ -25,32 +25,42 @@ namespace SOG.GamePlay.Inventory
     public void AddItem(ItemType itemType, int amount)
     {
 
-      for (int i = 0; i < itemList.Count; i++)
+      if (itemList.Count != 0)
       {
-        if (itemList[i].GetItemType() == itemType)
+        for (int i = 0; i < itemList.Count; i++)
         {
-          itemList[i].SetAmount((itemList[i].GetAmount()+ amount));
+          if (itemList[i].GetItemType() == itemType)
+          {
+            itemList[i].SetAmount((itemList[i].GetAmount() + amount));
 
-          Debug.Log(itemList[i].GetItemType() +" "+ itemList[i].GetAmount());
+            Debug.Log(itemList[i].GetItemType() + " " + itemList[i].GetAmount());
 
-          isContain = true;
+            isContain = true;
 
-          break;
+            break;
+          }
+          else
+          {
+            isContain = false;
+          }
         }
-        else
+        if (!isContain)
         {
-          isContain = false;
+          Item item = new Item(itemType, amount);
+
+          itemList.Add(item);
+
+          Debug.Log("Aded " + itemType);
         }
       }
 
-
-      if(!isContain)
+      else
       {
         Item item = new Item(itemType, amount);
 
         itemList.Add(item);
 
-        Debug.Log("Aded " + itemType);
+        Debug.Log("Aded to empty inventory: " + itemType);
       }
     }
 

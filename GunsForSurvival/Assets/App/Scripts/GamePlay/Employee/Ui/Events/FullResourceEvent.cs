@@ -9,9 +9,13 @@ namespace SOG.GamePlay.Employee.Ui.Events
   {
     public ItemType item;
 
-    public FullResourceEvent(ItemType _item)
+    public bool active;
+
+    public FullResourceEvent(ItemType _item, bool _active)
     {
       item = _item;
+
+      active = _active;
     }
   }
 }

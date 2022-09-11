@@ -5,6 +5,7 @@ using DynamicBox.EventManagement;
 using SOG.GamePlay.ResourceLine;
 using SOG.GamePlay.Employee;
 using SOG.GamePlay.Employee.Ui.Events;
+using SOG.GamePlayUi.Events;
 
 namespace SOG.GamePlay.Inventory
 {
@@ -22,40 +23,16 @@ namespace SOG.GamePlay.Inventory
       inventory = new Inventory();
     }
 
-    private void Update()
-    {
-      CheckResoruce();
-    }
-
     private void CheckResoruce()
     {
-      WoodResource = true;
-      IronResource = true;
-      AluminumResource = true;
-      ChocalateResource = true;
-
+      EventManager.Instance.Raise(new FullResourceEvent(ItemType.WOOD, false));
+      EventManager.Instance.Raise(new FullResourceEvent(ItemType.IRON, false));
+      EventManager.Instance.Raise(new FullResourceEvent(ItemType.ALUMINUM, false));
+      EventManager.Instance.Raise(new FullResourceEvent(ItemType.CHOCOLATE, false));
       for (int j = 0; j < inventory.GetItemList().Count; j++)
       {
-        if (inventory.GetItemList()[j].GetItemType() != ItemType.WOOD && WoodResource)
-        {
-          EventManager.Instance.Raise(new FullResourceEvent(ItemType.WOOD));
-          WoodResource = false;
-        }
-        if (inventory.GetItemList()[j].GetItemType() != ItemType.IRON && IronResource)
-        {
-          EventManager.Instance.Raise(new FullResourceEvent(ItemType.IRON));
-          IronResource = false;
-        }
-        if (inventory.GetItemList()[j].GetItemType() != ItemType.ALUMINUM && AluminumResource)
-        {
-          EventManager.Instance.Raise(new FullResourceEvent(ItemType.ALUMINUM));
-          AluminumResource = false;
-        }
-        if (inventory.GetItemList()[j].GetItemType() != ItemType.CHOCOLATE && ChocalateResource)
-        {
-          EventManager.Instance.Raise(new FullResourceEvent(ItemType.CHOCOLATE));
-          ChocalateResource = false;
-        }
+        EventManager.Instance.Raise(new FullResourceEvent(inventory.GetItemList()[j].GetItemType(), true));
+        Debug.Log(inventory.GetItemList().Count);
       }
     }
 
@@ -65,14 +42,15 @@ namespace SOG.GamePlay.Inventory
     {
       EventManager.Instance.AddListener<OnTakeEvent>(OnTakeEventHandler);
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.AddListener<InventoryListContainerTriggerEvent>(InventoryListContainerTriggerEventHandler);
+      EventManager.Instance.AddListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
+    
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnTakeEvent>(OnTakeEventHandler);
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.RemoveListener<InventoryListContainerTriggerEvent>(InventoryListContainerTriggerEventHandler);
+      EventManager.Instance.RemoveListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
     }
 
     #endregion
@@ -86,12 +64,15 @@ namespace SOG.GamePlay.Inventory
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
     {
       inventory.RemoveItem(eventDetails.item, eventDetails.amount);
+      CheckResoruce();
     }
 
-    private void InventoryListContainerTriggerEventHandler(InventoryListContainerTriggerEvent eventDetails)
+    private void OnTriggerEnterEventHandler(OnTriggerEnterEvent eventDetails)
     {
-      EventManager.Instance.Raise(new InventoryListContainerEvent(inventory.GetItemList()));
+      CheckResoruce();
     }
+
+
     #endregion
   }
 }

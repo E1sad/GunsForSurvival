@@ -1,5 +1,6 @@
 using UnityEngine;
 using DynamicBox.EventManagement;
+using SOG.GamePlayUi.Events;
 
 namespace SOG.GamePlay.ResourceLine
 {
@@ -19,6 +20,7 @@ namespace SOG.GamePlay.ResourceLine
       if (collision.gameObject.CompareTag("Player"))
       {
         isInteractable = true;
+        EventManager.Instance.Raise(new OnResourceLineTriggerEnter());
         this.enabled = true;
       }
     }
@@ -29,6 +31,7 @@ namespace SOG.GamePlay.ResourceLine
       {
         isInteractable = false;
         this.enabled = false;
+        EventManager.Instance.Raise(new OnResourceLineTriggerExit());
       }
     }
 
@@ -48,6 +51,26 @@ namespace SOG.GamePlay.ResourceLine
       Interact();
     }
 
+    #region Unity Events
+    private void OnEnable()
+    {
+      EventManager.Instance.AddListener<OnGamePlayResourcesButtonPressed>(OnGamePlayResourcesButtonPressedHandler);
+    }
 
+    private void OnDisable()
+    {
+      EventManager.Instance.RemoveListener<OnGamePlayResourcesButtonPressed>(OnGamePlayResourcesButtonPressedHandler);
+
+    }
+
+    #endregion
+
+    #region Events Handlers
+    private void OnGamePlayResourcesButtonPressedHandler(OnGamePlayResourcesButtonPressed eventDetails)
+    {
+      EventManager.Instance.Raise(new OnTakeEvent(item, 1));
+    }
+
+    #endregion
   }
 }

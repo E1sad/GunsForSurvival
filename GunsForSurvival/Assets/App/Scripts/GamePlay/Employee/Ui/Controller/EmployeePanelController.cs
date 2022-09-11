@@ -4,6 +4,7 @@ using UnityEngine;
 using SOG.GamePlay.Employee;
 using DynamicBox.EventManagement;
 using SOG.GamePlay.Employee.Ui.Events;
+using SOG.GamePlayUi.Events;
 
 namespace SOG.GamePlay.Employee.Ui
 {
@@ -40,7 +41,7 @@ namespace SOG.GamePlay.Employee.Ui
       EventManager.Instance.AddListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
       EventManager.Instance.AddListener<FullResourceEvent>(FullResourceEventHandler);
       EventManager.Instance.AddListener<TriggerExitResetResourcesEvent>(TriggerExitResetResourcesEventHandler);
-      
+      EventManager.Instance.AddListener<OnGamePlayEmployeeButtonPressed>(OnGamePlayEmployeeButtonPressedHandler);
     }
 
     private void OnDisable()
@@ -49,7 +50,7 @@ namespace SOG.GamePlay.Employee.Ui
       EventManager.Instance.RemoveListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
       EventManager.Instance.RemoveListener<FullResourceEvent>(FullResourceEventHandler);
       EventManager.Instance.RemoveListener<TriggerExitResetResourcesEvent>(TriggerExitResetResourcesEventHandler);
-      
+      EventManager.Instance.RemoveListener<OnGamePlayEmployeeButtonPressed>(OnGamePlayEmployeeButtonPressedHandler);
     }
     #endregion
 
@@ -66,7 +67,7 @@ namespace SOG.GamePlay.Employee.Ui
 
     private void FullResourceEventHandler(FullResourceEvent eventDetails)
     {
-      view.SetInteractable(eventDetails.item, false);
+      view.SetInteractable(eventDetails.item, eventDetails.active);
     }
 
     private void TriggerExitResetResourcesEventHandler(TriggerExitResetResourcesEvent eventDetails)
@@ -74,6 +75,10 @@ namespace SOG.GamePlay.Employee.Ui
       view.ResetInteractable(true);
     }
 
+    private void OnGamePlayEmployeeButtonPressedHandler(OnGamePlayEmployeeButtonPressed eventDetails)
+    {
+      view.SetActivePanel(true);
+    }
 
     #endregion
 

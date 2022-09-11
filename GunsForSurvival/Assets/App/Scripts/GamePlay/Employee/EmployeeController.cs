@@ -28,7 +28,7 @@ namespace SOG.GamePlay.Employee
       if (collision.CompareTag("Player"))
       {
         this.enabled = true;
-        EventManager.Instance.Raise(new InventoryListContainerTriggerEvent());
+        EventManager.Instance.Raise(new OnTriggerEnterEvent());
       }
     }
 
@@ -89,7 +89,7 @@ namespace SOG.GamePlay.Employee
       {
         if (benchItemList[i].GetAmount() >= 3)
         {
-          EventManager.Instance.Raise(new FullResourceEvent(benchItemList[i].GetItemType()));
+          EventManager.Instance.Raise(new FullResourceEvent(benchItemList[i].GetItemType(), false));
         }
       }
     }
@@ -99,13 +99,11 @@ namespace SOG.GamePlay.Employee
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.AddListener<InventoryListContainerEvent>(InventoryListContainerEventHandler);
     }
 
     private void OnDisable()
     {
-      EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.RemoveListener<InventoryListContainerEvent>(InventoryListContainerEventHandler);
+      EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);   
     }
     #endregion
 
@@ -113,11 +111,6 @@ namespace SOG.GamePlay.Employee
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
     {
       AddItem(eventDetails.item, eventDetails.amount);
-    }
-
-    private void InventoryListContainerEventHandler(InventoryListContainerEvent eventDetails)
-    {
-      inventoryList = eventDetails.inventoryList;
     }
     #endregion
 

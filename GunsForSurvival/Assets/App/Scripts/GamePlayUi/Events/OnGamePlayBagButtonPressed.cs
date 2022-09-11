@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace SOG.GamePlay.Employee.Ui.Events
+namespace SOG.GamePlayUi.Events
 {
-  public class InventoryListContainerTriggerEvent : GameEvent
+  public class OnGamePlayBagButtonPressed : GameEvent
   {
 
   }
