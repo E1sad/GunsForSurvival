@@ -32,7 +32,7 @@ namespace SOG.GamePlay.Inventory
       for (int j = 0; j < inventory.GetItemList().Count; j++)
       {
         EventManager.Instance.Raise(new FullResourceEvent(inventory.GetItemList()[j].GetItemType(), true));
-        Debug.Log(inventory.GetItemList().Count);
+        EventManager.Instance.Raise(new InventoryItemContainerEvent(inventory.GetItemList()[j].GetItemType(), inventory.GetItemList()[j].GetAmount()));
       }
     }
 
@@ -43,7 +43,8 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.AddListener<OnTakeEvent>(OnTakeEventHandler);
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.AddListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
-    
+      EventManager.Instance.AddListener<OnGamePlayBagButtonPressed>(OnGamePlayBagButtonPressedHandler);
+      EventManager.Instance.AddListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
     }
 
     private void OnDisable()
@@ -51,6 +52,7 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.RemoveListener<OnTakeEvent>(OnTakeEventHandler);
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.RemoveListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
+      EventManager.Instance.RemoveListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
     }
 
     #endregion
@@ -64,15 +66,28 @@ namespace SOG.GamePlay.Inventory
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
     {
       inventory.RemoveItem(eventDetails.item, eventDetails.amount);
+      EventManager.Instance.Raise(new InventoryResetEvent());
       CheckResoruce();
     }
 
     private void OnTriggerEnterEventHandler(OnTriggerEnterEvent eventDetails)
     {
+      EventManager.Instance.Raise(new InventoryResetEvent());
       CheckResoruce();
     }
 
+    private void OnGamePlayBagButtonPressedHandler(OnGamePlayBagButtonPressed eventDetails)
+    {
+      EventManager.Instance.Raise(new InventoryResetEvent());
+      CheckResoruce();
+    }
 
+    private void InventoryItemDeleteEventHandler(InventoryItemDeleteEvent eventDetails)
+    {
+      inventory.RemoveItem(eventDetails.item, eventDetails.amount);
+      EventManager.Instance.Raise(new InventoryResetEvent());
+      CheckResoruce();
+    }
     #endregion
   }
 }

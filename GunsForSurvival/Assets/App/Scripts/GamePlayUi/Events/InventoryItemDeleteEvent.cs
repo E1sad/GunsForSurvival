@@ -3,20 +3,20 @@ using SOG.GamePlay;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-namespace SOG.GamePlay.Employee.Ui.Events
+
+namespace SOG.GamePlayUi.Events
 {
-  public class FullResourceEvent : GameEvent
+  public class InventoryItemDeleteEvent : GameEvent
   {
     public ItemType item;
 
-    public bool active;
+    public int amount;
 
-
-    public FullResourceEvent(ItemType _item, bool _active)
+    public InventoryItemDeleteEvent(ItemType _item, int _amount)
     {
       item = _item;
 
-      active = _active;
+      amount = _amount;
     }
   }
 }
