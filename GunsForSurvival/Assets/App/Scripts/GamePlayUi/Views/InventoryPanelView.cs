@@ -40,28 +40,28 @@ namespace SOG.GamePlayUi.Views
 
     public void Button1Pressed()
     {
-      if (itemIndex1 != ItemType.CHOCOLATE && indexOfInventory>0)
+      if (itemIndex1 != ItemType.NULL && indexOfInventory>0)
       {
         DeleteOnButtonPressed(itemIndex1, 1);
       }
     }
     public void Button2Pressed()
     {
-      if (itemIndex2 != ItemType.CHOCOLATE && indexOfInventory > 1)
+      if (itemIndex2 != ItemType.NULL && indexOfInventory > 1)
       {
         DeleteOnButtonPressed(itemIndex2, 1);
       }
     }
     public void Button3Pressed()
     {
-      if (itemIndex3 != ItemType.CHOCOLATE && indexOfInventory > 2)
+      if (itemIndex3 != ItemType.NULL && indexOfInventory > 2)
       {
         DeleteOnButtonPressed(itemIndex3, 1);
       }
     }
     public void Button4Pressed()
     {
-      if (itemIndex4 != ItemType.CHOCOLATE && indexOfInventory > 3)
+      if (itemIndex4 != ItemType.NULL && indexOfInventory > 3)
       {
         DeleteOnButtonPressed(itemIndex4, 1);
       }
@@ -85,6 +85,7 @@ namespace SOG.GamePlayUi.Views
       ItemAmountText[indexOfInventory].gameObject.SetActive(true);
       ItemIcon[indexOfInventory].gameObject.SetActive(true);
       indexOfInventory++;
+      //Debug.Log("indexOfInventory: " + indexOfInventory);
     }
 
     public void FindIndexItem(ItemType item,int amount)
@@ -108,10 +109,10 @@ namespace SOG.GamePlayUi.Views
 
     public void ResetInventory()
     {
-     itemIndex1 = ItemType.CHOCOLATE;
-     itemIndex2 = ItemType.CHOCOLATE;
-     itemIndex3 = ItemType.CHOCOLATE;
-     itemIndex4 = ItemType.CHOCOLATE;
+     itemIndex1 = ItemType.NULL;
+     itemIndex2 = ItemType.NULL;
+     itemIndex3 = ItemType.NULL;
+     itemIndex4 = ItemType.NULL;
       for (int i = 0; i < ItemIcon.Length; i++)
       {
         ItemIcon[i].gameObject.SetActive(false);

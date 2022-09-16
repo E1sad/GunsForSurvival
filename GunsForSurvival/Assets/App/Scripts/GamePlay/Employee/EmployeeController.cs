@@ -1,9 +1,10 @@
 using DynamicBox.EventManagement;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using SOG.GamePlay.Employee.Ui.Events;
 using SOG.GamePlay.Inventory;
+using SOG.GamePlay.ResourceLine;
+using SOG.GamePlayUi.Events;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace SOG.GamePlay.Employee
 {
@@ -12,14 +13,25 @@ namespace SOG.GamePlay.Employee
 
     private List<Item> benchItemList;
 
-    private List<Item> inventoryList;
+    [SerializeField] private GameObject[] WoodResources;
+    [SerializeField] private GameObject[] IronResources;
+    [SerializeField] private GameObject[] AluminumResources;
+    [SerializeField] private GameObject[] GunResources;
 
     private bool IsContain;
 
+    private bool isProducable;
+
+    private int GunAmount;
+
+
+    #region Unity's Methods
     private void Start()
     {
       benchItemList = new List<Item>();
+      isProducable = true;
       IsContain = false;
+      GunAmount = 0;
       this.enabled = false;
     }
 
@@ -29,6 +41,7 @@ namespace SOG.GamePlay.Employee
       {
         this.enabled = true;
         EventManager.Instance.Raise(new OnTriggerEnterEvent());
+        checkBecnhResources();
       }
     }
 
@@ -48,8 +61,10 @@ namespace SOG.GamePlay.Employee
       {
         EventManager.Instance.Raise(new OnEmployeeBagButtonPressedEvent());
       }
-      checkBecnhResources();
     }
+    #endregion
+
+    #region Project's Methods
 
     private void AddItem(ItemType item, int amount)
     {
@@ -57,53 +72,170 @@ namespace SOG.GamePlay.Employee
       {
         if (benchItemList[i].GetItemType() == item)
         {
-            benchItemList[i].SetAmount((benchItemList[i].GetAmount() + amount));
+          benchItemList[i].SetAmount((benchItemList[i].GetAmount() + amount));
 
-            Debug.Log(benchItemList[i].GetItemType() + " remained in bench " + benchItemList[i].GetAmount());
+          BenchResourcesIncrease(item, benchItemList[i].GetAmount());
 
-            IsContain = true;
+          //Debug.Log(benchItemList[i].GetItemType() + " remained in bench " + benchItemList[i].GetAmount());
 
-            break;
+          IsContain = true;
+
+          break;
         }
         else
         {
+
           IsContain = false;
         }
       }
-
-
       if (!IsContain)
       {
         Item benchitem = new Item(item, amount);
 
         benchItemList.Add(benchitem);
 
-        Debug.Log("Aded " + item + " to bench");
+        BenchResourcesIncrease(item, amount);
+
+        //Debug.Log("Aded " + item + " to bench");
+      }
+    }
+
+    private void RemoveItem(ItemType item, int amount)
+    {
+      for (int i = 0; i < benchItemList.Count; i++)
+      {
+        if (benchItemList[i].GetItemType() == item)
+        {
+          if (benchItemList[i].GetAmount() > 1)
+          {
+
+            benchItemList[i].SetAmount((benchItemList[i].GetAmount() - amount));
+
+            BenchResourceDecrease(item, benchItemList[i].GetAmount());
+
+            //Debug.Log(benchItemList[i].GetItemType() + " " + benchItemList[i].GetAmount());
+
+            break;
+          }
+          else if (benchItemList[i].GetAmount() == 1)
+          {
+            //Debug.Log("Removed " + benchItemList[i].GetItemType());
+
+            BenchResourceDecrease(item, 0);
+
+            IsContain = false;
+
+            benchItemList.Remove(benchItemList[i]);
+          }
+        }
+      }
+    }
+
+    private void BenchResourcesIncrease(ItemType item, int amount)
+    {
+      for (int i = 0; i < amount; i++)
+      {
+        FindItem(item)[i].SetActive(true);
+      }
+    }
+
+    private void BenchResourceDecrease(ItemType item, int amount)
+    {
+      for (int j = amount; j < 3; j++)
+      {
+        FindItem(item)[j].SetActive(false);
+      }
+    }
+
+    private GameObject[] FindItem(ItemType item)
+    {
+      switch (item)
+      {
+        case ItemType.WOOD:
+          return WoodResources;
+        case ItemType.IRON:
+          return IronResources;
+        case ItemType.ALUMINUM:
+          return AluminumResources;
+        case ItemType.GUN:
+          return GunResources;
+        default:
+          return null;
       }
     }
 
     private void checkBecnhResources()
     {
-     
+
       for (int i = 0; i < benchItemList.Count; i++)
       {
         if (benchItemList[i].GetAmount() >= 3)
         {
           EventManager.Instance.Raise(new FullResourceEvent(benchItemList[i].GetItemType(), false));
         }
+        //Debug.Log("Remain: " + benchItemList[i].GetAmount());
       }
     }
 
+    private void TakeResourcesForProduceGun()
+    {
+      RemoveItem(ItemType.WOOD, 1);
+      RemoveItem(ItemType.IRON, 1);
+      RemoveItem(ItemType.ALUMINUM, 1);
+      AddItem(ItemType.GUN, 1);
+      isProducable = true;
+      GunAmount++;
+    }
+
+    private bool CheckGunResources()
+    {
+      int correct = 0;
+      for (int i = 0; i < benchItemList.Count; i++)
+      {
+        if (benchItemList[i].GetItemType() == ItemType.WOOD)
+        {
+          correct++;
+        }
+        if (benchItemList[i].GetItemType() == ItemType.IRON)
+        {
+          correct++;
+        }
+        if (benchItemList[i].GetItemType() == ItemType.ALUMINUM)
+        {
+          correct++;
+        }
+      }
+      if (correct == 3)
+      {
+        return true;
+      }
+      return false;
+    }
+
+    public void ProduceGun()
+    {
+      if (CheckGunResources() && isProducable && GunAmount < 3)
+      {
+        Invoke("TakeResourcesForProduceGun", 5f);
+        isProducable = false;
+      }
+    }
+
+    #endregion
 
     #region Unity Events
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
+      EventManager.Instance.AddListener<OnGamePlayTakeGunButtonPressed>(OnGamePlayTakeGunButtonPressedHandler);
+      EventManager.Instance.AddListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
     }
 
     private void OnDisable()
     {
-      EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);   
+      EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
+      EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
+      EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
     }
     #endregion
 
@@ -111,6 +243,24 @@ namespace SOG.GamePlay.Employee
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
     {
       AddItem(eventDetails.item, eventDetails.amount);
+      checkBecnhResources();
+    }
+
+    private void OnGamePlayTakeGunButtonPressedHandler(OnGamePlayTakeGunButtonPressed eventDetails)
+    {
+
+    }
+
+    private void GunAmountRequestEventHandler(GunAmountRequestEvent eventDetails)
+    {
+      if (GunAmount > 0)
+      {
+          RemoveItem(ItemType.GUN, 1);
+          GunAmount--;
+          checkBecnhResources();
+        EventManager.Instance.Raise(new CheckResourcesEvent());
+        EventManager.Instance.Raise(new OnTakeEvent(ItemType.GUN, 1));
+      }
     }
     #endregion
 

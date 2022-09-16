@@ -4,8 +4,10 @@ using UnityEngine;
 using DynamicBox.EventManagement;
 using SOG.GamePlay.ResourceLine;
 using SOG.GamePlay.Employee;
+using SOG.GamePlay.Inventory;
 using SOG.GamePlay.Employee.Ui.Events;
 using SOG.GamePlayUi.Events;
+using SOG.GamePlay.FetchGun;
 
 namespace SOG.GamePlay.Inventory
 {
@@ -29,6 +31,7 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.Raise(new FullResourceEvent(ItemType.IRON, false));
       EventManager.Instance.Raise(new FullResourceEvent(ItemType.ALUMINUM, false));
       EventManager.Instance.Raise(new FullResourceEvent(ItemType.CHOCOLATE, false));
+
       for (int j = 0; j < inventory.GetItemList().Count; j++)
       {
         EventManager.Instance.Raise(new FullResourceEvent(inventory.GetItemList()[j].GetItemType(), true));
@@ -45,6 +48,8 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.AddListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
       EventManager.Instance.AddListener<OnGamePlayBagButtonPressed>(OnGamePlayBagButtonPressedHandler);
       EventManager.Instance.AddListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
+      EventManager.Instance.AddListener<CheckResourcesEvent>(CheckResourcesEventHandler);
+      EventManager.Instance.AddListener<TakeGunEvent>(TakeGunEventHandler);
     }
 
     private void OnDisable()
@@ -52,7 +57,10 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.RemoveListener<OnTakeEvent>(OnTakeEventHandler);
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.RemoveListener<OnTriggerEnterEvent>(OnTriggerEnterEventHandler);
+      EventManager.Instance.RemoveListener<OnGamePlayBagButtonPressed>(OnGamePlayBagButtonPressedHandler);
       EventManager.Instance.RemoveListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
+      EventManager.Instance.RemoveListener<CheckResourcesEvent>(CheckResourcesEventHandler);
+      EventManager.Instance.RemoveListener<TakeGunEvent>(TakeGunEventHandler);
     }
 
     #endregion
@@ -87,6 +95,30 @@ namespace SOG.GamePlay.Inventory
       inventory.RemoveItem(eventDetails.item, eventDetails.amount);
       EventManager.Instance.Raise(new InventoryResetEvent());
       CheckResoruce();
+    }
+
+    private void CheckResourcesEventHandler(CheckResourcesEvent eventDetails)
+    {
+      EventManager.Instance.Raise(new InventoryResetEvent());
+      CheckResoruce();
+    }
+
+    private void TakeGunEventHandler(TakeGunEvent eventDetails)
+    {
+      for (int j = 0; j < inventory.GetItemList().Count; j++)
+      {
+        if (inventory.GetItemList()[j].GetItemType() == ItemType.GUN)
+        {
+          EventManager.Instance.Raise(new GunCheckInventoryEvent(true));
+          inventory.RemoveItem(ItemType.GUN, 1);
+          EventManager.Instance.Raise(new InventoryResetEvent());
+          CheckResoruce();
+        }
+        else
+        {
+          EventManager.Instance.Raise(new GunCheckInventoryEvent(false));
+        }
+      }
     }
     #endregion
   }

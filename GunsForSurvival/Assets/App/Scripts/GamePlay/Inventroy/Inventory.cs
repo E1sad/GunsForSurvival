@@ -33,7 +33,7 @@ namespace SOG.GamePlay.Inventory
           {
             itemList[i].SetAmount((itemList[i].GetAmount() + amount));
 
-            Debug.Log(itemList[i].GetItemType() + " " + itemList[i].GetAmount());
+            //Debug.Log(itemList[i].GetItemType() + " " + itemList[i].GetAmount());
 
             isContain = true;
 
@@ -50,7 +50,7 @@ namespace SOG.GamePlay.Inventory
 
           itemList.Add(item);
 
-          Debug.Log("Aded " + itemType);
+          //Debug.Log("Aded " + itemType);
         }
       }
 
@@ -60,7 +60,7 @@ namespace SOG.GamePlay.Inventory
 
         itemList.Add(item);
 
-        Debug.Log("Aded to empty inventory: " + itemType);
+        //Debug.Log("Aded to empty inventory: " + itemType);
       }
     }
 
@@ -74,13 +74,13 @@ namespace SOG.GamePlay.Inventory
           {
             itemList[i].SetAmount((itemList[i].GetAmount() - amount));
 
-            Debug.Log(itemList[i].GetItemType() + " " + itemList[i].GetAmount());
+            //Debug.Log(itemList[i].GetItemType() + " " + itemList[i].GetAmount());
 
             break;
           }
           else if (itemList[i].GetAmount() == 1)
           {
-            Debug.Log("Removed " + itemList[i].GetItemType());
+            //Debug.Log("Removed " + itemList[i].GetItemType());
 
             itemList.Remove(itemList[i]);
           }

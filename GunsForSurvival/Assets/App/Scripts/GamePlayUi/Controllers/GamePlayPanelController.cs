@@ -7,6 +7,10 @@ using UnityEngine.UI;
 using DynamicBox.EventManagement;
 using SOG.GamePlay.Employee.Ui.Events;
 using SOG.GamePlay.ResourceLine;
+using SOG.GamePlay.Inventory;
+using SOG.GamePlay.FetchGun;
+using SOG.GamePlay.Employee;
+using SOG.GamePlay;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -24,6 +28,7 @@ namespace SOG.GamePlayUi.Controllers
     public void EmployeeButtonPressed()
     {
       EventManager.Instance.Raise(new OnGamePlayEmployeeButtonPressed());
+      view.ButtonSetActive("TakeGun", true);
     }
 
     public void ResourcesButtonPressed()
@@ -36,12 +41,18 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.Raise(new OnGamePlayFetchGunButtonPressed());
     }
 
+    public void TakeGunButtonPressed()
+    {
+      EventManager.Instance.Raise(new GunAmountRequestEvent());
+    }
+
     public void DeactiveButtons()
     {
       view.ButtonSetActive("Employee", false);
       view.ButtonSetActive("Bag", false);
       view.ButtonSetActive("Resource", false);
       view.ButtonSetActive("FetchGun", false);
+      view.ButtonSetActive("TakeGun", false);
     }
 
     #region Unity Events
@@ -52,8 +63,9 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
       EventManager.Instance.AddListener<OnResourceLineTriggerEnter>(OnResourceLineTriggerEnterHandler);
       EventManager.Instance.AddListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
-
-
+      EventManager.Instance.AddListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
+      EventManager.Instance.AddListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
+      EventManager.Instance.AddListener<GunAmountEvent>(GunAmountEventHandler);
     }
 
     private void OnDisable()
@@ -63,6 +75,9 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.RemoveListener<OnEmployeeBagExitEvent>(OnEmployeeBagExitEventHandler);
       EventManager.Instance.RemoveListener<OnResourceLineTriggerEnter>(OnResourceLineTriggerEnterHandler);
       EventManager.Instance.RemoveListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
+      EventManager.Instance.RemoveListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
+      EventManager.Instance.RemoveListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
+      EventManager.Instance.RemoveListener<GunAmountEvent>(GunAmountEventHandler);
     }
     #endregion
 
@@ -94,6 +109,23 @@ namespace SOG.GamePlayUi.Controllers
     {
       DeactiveButtons();
       view.ButtonSetActive("Bag", true);
+    }
+
+    private void OnFetchGunEnterEventHandler(OnFetchGunEnterEvent eventDetails)
+    {
+      DeactiveButtons();
+      view.ButtonSetActive("FetchGun", true);
+    }
+
+    private void OnFetchGunExitEventHandler(OnFetchGunExitEvent eventDetails)
+    {
+      DeactiveButtons();
+      view.ButtonSetActive("Bag", true);
+    }
+
+    private void GunAmountEventHandler(GunAmountEvent eventDetails)
+    {
+
     }
     #endregion
   }

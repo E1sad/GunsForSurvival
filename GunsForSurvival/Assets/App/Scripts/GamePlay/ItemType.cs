@@ -4,5 +4,5 @@ using UnityEngine;
 
 namespace SOG.GamePlay
 {
-  public enum ItemType { WOOD, IRON, ALUMINUM, GUN, CHOCOLATE }
+  public enum ItemType { WOOD, IRON, ALUMINUM, GUN, CHOCOLATE, NULL }
 }

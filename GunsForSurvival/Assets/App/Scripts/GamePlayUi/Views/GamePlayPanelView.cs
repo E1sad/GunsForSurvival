@@ -14,6 +14,7 @@ namespace SOG.GamePlayUi.Views
     [Header("View properties")]
     [SerializeField] private Button bagButton;
     [SerializeField] private Button employeeButton;
+    [SerializeField] private Button takeGunButton;
     [SerializeField] private Button resourcesButton;
     [SerializeField] private Button fetchGunButton;
 
@@ -37,6 +38,11 @@ namespace SOG.GamePlayUi.Views
       controller.FetchGunButtonPressed();
     }
 
+    public void TakeGunButtonPressed()
+    {
+      controller.TakeGunButtonPressed();
+    }
+
     public void SetActivePanel(bool active)
     {
       gameObject.SetActive(active);
@@ -57,6 +63,9 @@ namespace SOG.GamePlayUi.Views
           break;
         case "FetchGun":
           fetchGunButton.gameObject.SetActive(active);
+          break;
+        case "TakeGun":
+          takeGunButton.gameObject.SetActive(active);
           break;
       }
     }
