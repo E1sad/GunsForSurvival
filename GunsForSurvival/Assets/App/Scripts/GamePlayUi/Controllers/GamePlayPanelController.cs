@@ -65,7 +65,6 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
       EventManager.Instance.AddListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
       EventManager.Instance.AddListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
-      EventManager.Instance.AddListener<GunAmountEvent>(GunAmountEventHandler);
     }
 
     private void OnDisable()
@@ -77,7 +76,6 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.RemoveListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
       EventManager.Instance.RemoveListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
       EventManager.Instance.RemoveListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
-      EventManager.Instance.RemoveListener<GunAmountEvent>(GunAmountEventHandler);
     }
     #endregion
 
@@ -121,11 +119,6 @@ namespace SOG.GamePlayUi.Controllers
     {
       DeactiveButtons();
       view.ButtonSetActive("Bag", true);
-    }
-
-    private void GunAmountEventHandler(GunAmountEvent eventDetails)
-    {
-
     }
     #endregion
   }

@@ -1,6 +1,7 @@
 using SOG.GamePlay.Inventory;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,8 @@ namespace SOG.GamePlay.Employee.Ui
     [SerializeField] private Button ironButton;
     [SerializeField] private Button aluminumButton;
     [SerializeField] private Button choclateButton;
+
+    [SerializeField] private TMP_Text[] AmountsText;
 
     public void OnWoodButtonPressed()
     {
@@ -64,6 +67,23 @@ namespace SOG.GamePlay.Employee.Ui
       }
     }
 
+    private int ResourceFinder(ItemType item)
+    {
+      switch (item)
+      {
+        case ItemType.WOOD:
+          return 1;
+        case ItemType.IRON:
+          return 2;
+        case ItemType.ALUMINUM:
+          return 3;
+        case ItemType.CHOCOLATE:
+          return 4;
+        default:
+          return 0;
+      }
+    }
+
     public void ResetInteractable(bool active)
     {
       woodButton.interactable = active;
@@ -72,9 +92,18 @@ namespace SOG.GamePlay.Employee.Ui
       choclateButton.interactable = active;
     }
 
-    public void ResourcesFromInventory(List<Item> inventoryList)
+    public void ResetAmountOfResources()
     {
+      for (int i = 0; i < AmountsText.Length; i++)
+      {
+        AmountsText[i].text = "0";
+      }
+    }
 
+
+    public void ResourceAmounts(ItemType item, int amount)
+    {
+      AmountsText[ResourceFinder(item)-1].text = "" + amount;
     }
 
   }

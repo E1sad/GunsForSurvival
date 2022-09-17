@@ -227,14 +227,12 @@ namespace SOG.GamePlay.Employee
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.AddListener<OnGamePlayTakeGunButtonPressed>(OnGamePlayTakeGunButtonPressedHandler);
       EventManager.Instance.AddListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
-      EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
       EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
     }
     #endregion
@@ -244,11 +242,6 @@ namespace SOG.GamePlay.Employee
     {
       AddItem(eventDetails.item, eventDetails.amount);
       checkBecnhResources();
-    }
-
-    private void OnGamePlayTakeGunButtonPressedHandler(OnGamePlayTakeGunButtonPressed eventDetails)
-    {
-
     }
 
     private void GunAmountRequestEventHandler(GunAmountRequestEvent eventDetails)
