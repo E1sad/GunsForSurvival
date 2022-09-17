@@ -72,15 +72,15 @@ namespace SOG.GamePlay.Employee.Ui
       switch (item)
       {
         case ItemType.WOOD:
-          return 1;
-        case ItemType.IRON:
-          return 2;
-        case ItemType.ALUMINUM:
-          return 3;
-        case ItemType.CHOCOLATE:
-          return 4;
-        default:
           return 0;
+        case ItemType.IRON:
+          return 1;
+        case ItemType.ALUMINUM:
+          return 2;
+        case ItemType.CHOCOLATE:
+          return 3;
+        default:
+          return 4;
       }
     }
 
@@ -103,7 +103,10 @@ namespace SOG.GamePlay.Employee.Ui
 
     public void ResourceAmounts(ItemType item, int amount)
     {
-      AmountsText[ResourceFinder(item)-1].text = "" + amount;
+      if (ResourceFinder(item) < 4)
+      {
+        AmountsText[ResourceFinder(item)].text = "" + amount;
+      }
     }
 
   }
