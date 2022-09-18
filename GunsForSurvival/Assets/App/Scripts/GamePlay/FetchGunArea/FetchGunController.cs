@@ -1,4 +1,5 @@
 using DynamicBox.EventManagement;
+using SOG.GamePlay.DemandController;
 using SOG.GamePlayUi.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +10,7 @@ namespace SOG.GamePlay.FetchGun
 {
   public class FetchGunController : MonoBehaviour
   {
-    [SerializeField] private int DemandAmount;
-    [SerializeField] private int cuurentGun;
+    [SerializeField] private int currentGun;
 
     #region Unity Methods
     private void Start()
@@ -71,8 +71,8 @@ namespace SOG.GamePlay.FetchGun
     {
       if (eventDetails.active)
       {
-        cuurentGun++;
-        Debug.Log(cuurentGun);
+        currentGun++;
+        EventManager.Instance.Raise(new CurrentAmountEvent(currentGun));
       }
     }
     #endregion
