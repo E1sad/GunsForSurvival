@@ -1,5 +1,6 @@
 using DynamicBox.EventManagement;
 using SOG.GamePlay.DemandController;
+using SOG.GamePlay.EndOfDayManager;
 using SOG.GamePlayUi.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -46,17 +47,27 @@ namespace SOG.GamePlay.FetchGun
 
     #endregion
 
+    public void EndOfDay()
+    {
+      EventManager.Instance.Raise(new CurrentAmountEvent(currentGun));
+      currentGun = 0;
+      EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentGun, 0));
+      Debug.Log(currentGun);
+    }
+
     #region Unity Events
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnGamePlayFetchGunButtonPressed>(OnGamePlayFetchGunButtonPressedHandler);
       EventManager.Instance.AddListener<GunCheckInventoryEvent>(GunCheckInventoryEventHandler);
+
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnGamePlayFetchGunButtonPressed>(OnGamePlayFetchGunButtonPressedHandler);
       EventManager.Instance.RemoveListener<GunCheckInventoryEvent>(GunCheckInventoryEventHandler);
+
     }
     #endregion
 
@@ -73,8 +84,9 @@ namespace SOG.GamePlay.FetchGun
       {
         currentGun++;
         EventManager.Instance.Raise(new CurrentAmountEvent(currentGun));
+        //Debug.Log(currentGun);
       }
     }
-    #endregion
-  }
+      #endregion
+    }
 }

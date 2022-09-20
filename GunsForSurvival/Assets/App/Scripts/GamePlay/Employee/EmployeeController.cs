@@ -1,5 +1,6 @@
 using DynamicBox.EventManagement;
 using SOG.GamePlay.Employee.Ui.Events;
+using SOG.GamePlay.EndOfDayManager;
 using SOG.GamePlay.Inventory;
 using SOG.GamePlay.ResourceLine;
 using SOG.GamePlayUi.Events;
@@ -221,6 +222,22 @@ namespace SOG.GamePlay.Employee
       }
     }
 
+    public void EndofDayReset()
+    {
+      //Debug.Log("EndofDayReset()");
+      for (int i = 0; i < benchItemList.Count; i++)
+      {
+        //Debug.Log(benchItemList[i].GetItemType() + " :"+ benchItemList.Count + " :" + i);
+        BenchResourceDecrease(benchItemList[i].GetItemType(), 0);
+      }
+      for (int i = 0; i < benchItemList.Count; i++)
+      {
+        //Debug.Log(benchItemList[i].GetItemType() + " :" + benchItemList.Count + " :" + i);
+        benchItemList.Remove(benchItemList[i]);
+        i = -1;
+      }
+      //Debug.Log("---------------");
+    }
     #endregion
 
     #region Unity Events
@@ -228,12 +245,14 @@ namespace SOG.GamePlay.Employee
     {
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.AddListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
+      
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
+
     }
     #endregion
 
@@ -255,7 +274,8 @@ namespace SOG.GamePlay.Employee
         EventManager.Instance.Raise(new OnTakeEvent(ItemType.GUN, 1));
       }
     }
-    #endregion
 
-  }
+      #endregion
+
+    }
 }

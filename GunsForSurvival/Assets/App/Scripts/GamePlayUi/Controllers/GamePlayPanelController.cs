@@ -11,6 +11,8 @@ using SOG.GamePlay.Inventory;
 using SOG.GamePlay.FetchGun;
 using SOG.GamePlay.Employee;
 using SOG.GamePlay;
+using SOG.GamePlay.DemandController;
+using SOG.GamePlay.EndOfDayManager;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -65,6 +67,9 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
       EventManager.Instance.AddListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
       EventManager.Instance.AddListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
+      EventManager.Instance.AddListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
+      EventManager.Instance.AddListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
+      EventManager.Instance.AddListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
     }
 
     private void OnDisable()
@@ -76,6 +81,9 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.RemoveListener<OnResourceLineTriggerExit>(OnResourceLineTriggerExitHandler);
       EventManager.Instance.RemoveListener<OnFetchGunEnterEvent>(OnFetchGunEnterEventHandler);
       EventManager.Instance.RemoveListener<OnFetchGunExitEvent>(OnFetchGunExitEventHandler);
+      EventManager.Instance.RemoveListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
+      EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
+      EventManager.Instance.RemoveListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
     }
     #endregion
 
@@ -120,7 +128,22 @@ namespace SOG.GamePlayUi.Controllers
       DeactiveButtons();
       view.ButtonSetActive("Bag", true);
     }
-    #endregion
+
+    private void CurrentStatusOfUIEventHandler(CurrentStatusOfUIEvent eventDetails)
+    {
+      view.SetDemandAndCurrentAmount(eventDetails.CurrentGunAmount, eventDetails.Demand);
+    }
+
+    private void EndOfDayMessageEventHandler(EndOfDayMessageEvent eventDetails)
+    {
+      view.SetActivePanel(false);
+    }
+
+    private void OnNextDayButtonPressendEventHandler(OnNextDayButtonPressendEvent eventDetails)
+    {
+      view.SetActivePanel(true);
+    }
+      #endregion
   }
 }
 

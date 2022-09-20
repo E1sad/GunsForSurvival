@@ -1574,6 +1574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7903233819431919278}
+  - component: {fileID: 4423700094856036999}
   m_Layer: 0
   m_Name: Resources
   m_TagString: Untagged
@@ -1599,6 +1600,19 @@ Transform:
   m_Father: {fileID: 1347091836008715176}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4423700094856036999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8467607162929139732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9360ad794d777064686cba5f49d41a4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 3887208347734209639}
 --- !u!1 &8756640370392683562
 GameObject:
   m_ObjectHideFlags: 0

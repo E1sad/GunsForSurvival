@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using SOG.GamePlayUi.Controllers;
 using UnityEngine.UI;
+using TMPro;
 
 namespace SOG.GamePlayUi.Views
 {
@@ -17,6 +18,8 @@ namespace SOG.GamePlayUi.Views
     [SerializeField] private Button takeGunButton;
     [SerializeField] private Button resourcesButton;
     [SerializeField] private Button fetchGunButton;
+
+    [SerializeField] private TMP_Text demandAndCurrentAmount;
 
     public void BagButtonPressed()
     {
@@ -68,6 +71,11 @@ namespace SOG.GamePlayUi.Views
           takeGunButton.gameObject.SetActive(active);
           break;
       }
+    }
+
+    public void SetDemandAndCurrentAmount(int currentAmount, int demand)
+    {
+      demandAndCurrentAmount.text = "" + currentAmount + "/" + demand;
     }
   }
 }

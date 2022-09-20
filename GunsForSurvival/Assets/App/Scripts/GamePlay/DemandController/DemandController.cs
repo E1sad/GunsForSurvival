@@ -1,5 +1,5 @@
 using DynamicBox.EventManagement;
-using SOG.GamePlay.EndOfDayController;
+using SOG.GamePlay.EndOfDayManager;
 using SOG.GamePlayUi.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -17,14 +17,19 @@ namespace SOG.GamePlay.DemandController
 
     private int finalDemand;
 
-    private void Start()
+    private void Awake()
     {
       demandAmount = 0;
 
-      satisfactoryPercent = 0;
+      satisfactoryPercent = 100;
     }
 
-
+    private void EndOfDayReset()
+    {
+      demandAmount = 0;
+      currentAmount = 0;
+      finalDemand = 0;
+    }
 
     #region Unity Events
     private void OnEnable()
@@ -50,23 +55,20 @@ namespace SOG.GamePlay.DemandController
     private void SatisfactoryPercentEventHandler(SatisfactoryPercentEvent eventDetails)
     {
       satisfactoryPercent = eventDetails.satisfactoryPercent;
-      if (demandAmount != 0)
-      {
-        finalDemand = demandAmount * (satisfactoryPercent / 100);
-      }
     }
 
     private void DemandAmountEventHandler(DemandAmountEvent eventDetails)
     {
       demandAmount = eventDetails.demandAmount;
-      if (satisfactoryPercent != 0)
-      {
-        finalDemand = demandAmount * (satisfactoryPercent / 100);
-      }
+      finalDemand = demandAmount * (satisfactoryPercent / 100);
+      //TEMPORARY
+      EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentAmount, finalDemand));
+      //TEMPORARY
     }
 
     private void EndOfDayMessageEventHandler(EndOfDayMessageEvent eventDetails)
     {
+      Debug.Log(currentAmount + "/" + finalDemand);
       if (currentAmount >= finalDemand)
       {
         EventManager.Instance.Raise(new DemandCompleteEvent(true));
@@ -75,17 +77,20 @@ namespace SOG.GamePlay.DemandController
       {
         EventManager.Instance.Raise(new DemandCompleteEvent(false));
       }
+      EndOfDayReset();
     }
 
     private void CurrentAmountEventHandler(CurrentAmountEvent eventDetails)
     {
       currentAmount = eventDetails.currentAmount;
-      Debug.Log(currentAmount);
+      EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentAmount, finalDemand));
     }
 
     private void OnNextDayButtonPressendEventHandler(OnNextDayButtonPressendEvent eventDetails)
     {
+      currentAmount = 0;
       EventManager.Instance.Raise(new FinalDemandEvent(finalDemand));
+      EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentAmount, finalDemand));
     }
     #endregion
   }

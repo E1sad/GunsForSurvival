@@ -5,6 +5,7 @@ using SOG.GamePlayUi.Views;
 using SOG.GamePlayUi.Events;
 using DynamicBox.EventManagement;
 using UnityEngine.SceneManagement;
+using SOG.GamePlay.EndOfDayManager;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -53,12 +54,13 @@ namespace SOG.GamePlayUi.Controllers
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
+      EventManager.Instance.AddListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
-
+      EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
     }
     #endregion
 
@@ -71,6 +73,10 @@ namespace SOG.GamePlayUi.Controllers
       view.SetActiveEndOfDayView(true);
     }
 
+    private void EndOfDayMessageEventHandler(EndOfDayMessageEvent eventDetails)
+    {
+      view.SetActiveEndOfDayView(true);
+    }
     #endregion
 
   }
