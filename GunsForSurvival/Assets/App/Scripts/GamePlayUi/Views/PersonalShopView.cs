@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SOG.GamePlayUi.Controllers;
+using TMPro;
 
 namespace SOG.GamePlayUi.Views
 {
@@ -9,6 +10,10 @@ namespace SOG.GamePlayUi.Views
   {
     [Header ("Controller refernce")]
     [SerializeField] private PersonalShopController controller;
+
+    [Header("View properties")]
+    [SerializeField] private TMP_Text informationText;
+    [SerializeField] private TMP_Text money;
 
     public void OnBackButtonPressed()
     {
@@ -38,6 +43,16 @@ namespace SOG.GamePlayUi.Views
     public void SetActivePersonalShopView(bool Is)
     {
       gameObject.SetActive(Is);
+    }
+
+    public void SetInformationText(string information)
+    {
+      informationText.text = "" + information;
+    }
+
+    public void SetMoneyText(int _money)
+    {
+      money.text = "" + _money;
     }
 
   }

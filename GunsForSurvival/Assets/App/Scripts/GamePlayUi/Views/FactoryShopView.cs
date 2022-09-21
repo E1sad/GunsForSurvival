@@ -4,6 +4,7 @@ using UnityEngine;
 using SOG.GamePlayUi.Controllers;
 using DynamicBox.EventManagement;
 using SOG.GamePlayUi.Events;
+using TMPro;
 
 namespace SOG.GamePlayUi.Views
 {
@@ -11,6 +12,10 @@ namespace SOG.GamePlayUi.Views
   {
     [Header("Controller reference")]
     [SerializeField] private FactoryShopController controller;
+
+    [Header("View properties")]
+    [SerializeField] private TMP_Text informationText;
+    [SerializeField] private TMP_Text money;
 
     public void OnPressedBackbutton()
     {
@@ -41,7 +46,15 @@ namespace SOG.GamePlayUi.Views
     {
       gameObject.SetActive(Is);
     }
+    public void SetInformationText(string information)
+    {
+      informationText.text = "" + information;
+    }
 
+    public void SetMoneyText(int _money)
+    {
+      money.text = "" + _money;
+    }
 
   }
 }

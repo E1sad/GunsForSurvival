@@ -36,6 +36,8 @@ namespace SOG.GamePlay.EndOfDayManager
 
     public void EndOfDay()
     {
+      
+      EventManager.Instance.Raise(new GetDayEvent(Day));
       EventManager.Instance.Raise(new EndOfDayMessageEvent());
     }
 
@@ -44,6 +46,7 @@ namespace SOG.GamePlay.EndOfDayManager
       NextDayDemand(Day);
       Day++;
       DayCycle();
+      Debug.Log(Day);
     }
 
     private void NextDayDemand(int day)

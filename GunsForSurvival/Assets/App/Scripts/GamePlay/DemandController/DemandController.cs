@@ -1,5 +1,6 @@
 using DynamicBox.EventManagement;
 using SOG.GamePlay.EndOfDayManager;
+using SOG.GamePlay.MoneyAndUpgrade;
 using SOG.GamePlayUi.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,19 +49,23 @@ namespace SOG.GamePlay.DemandController
       EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
       EventManager.Instance.RemoveListener<CurrentAmountEvent>(CurrentAmountEventHandler);
       EventManager.Instance.RemoveListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
+     
     }
     #endregion
 
     #region Event Handlers
     private void SatisfactoryPercentEventHandler(SatisfactoryPercentEvent eventDetails)
     {
-      satisfactoryPercent = eventDetails.satisfactoryPercent;
+      satisfactoryPercent -= eventDetails.satisfactoryPercent;
     }
 
     private void DemandAmountEventHandler(DemandAmountEvent eventDetails)
     {
+      float SFP = (float)satisfactoryPercent;
       demandAmount = eventDetails.demandAmount;
-      finalDemand = demandAmount * (satisfactoryPercent / 100);
+      finalDemand = (int)(demandAmount * (SFP / 100.0));
+      Debug.Log("Final Demand: "+finalDemand + "Satisfactory: " + satisfactoryPercent);
+      //Debug.Log("Calculations: " + (22*(50/100.0)));
       //TEMPORARY
       EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentAmount, finalDemand));
       //TEMPORARY
@@ -69,6 +74,8 @@ namespace SOG.GamePlay.DemandController
     private void EndOfDayMessageEventHandler(EndOfDayMessageEvent eventDetails)
     {
       Debug.Log(currentAmount + "/" + finalDemand);
+      EventManager.Instance.Raise(new CurrentStatusOfUIEvent(currentAmount, finalDemand));
+      EventManager.Instance.Raise(new DailyObtainedGunAmountEvent(currentAmount));
       if (currentAmount >= finalDemand)
       {
         EventManager.Instance.Raise(new DemandCompleteEvent(true));

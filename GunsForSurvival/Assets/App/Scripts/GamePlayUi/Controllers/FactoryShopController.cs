@@ -4,6 +4,7 @@ using UnityEngine;
 using SOG.GamePlayUi.Views;
 using DynamicBox.EventManagement;
 using SOG.GamePlayUi.Events;
+using SOG.GamePlay.MoneyAndUpgrade;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -45,11 +46,17 @@ namespace SOG.GamePlayUi.Controllers
     private void OnEnable()
     {
       EventManager.Instance.AddListener<OnFactoryUpgradesButtonPressedEvent>(OnFactoryUpgradesButtonPressedEventHandler);
+      EventManager.Instance.AddListener<NotEnoughMoneyEvent>(NotEnoughMoneyEventHandler);
+      EventManager.Instance.AddListener<MaxLevelUpgradeEvent>(MaxLevelUpgradeEventHandler);
+      EventManager.Instance.AddListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnFactoryUpgradesButtonPressedEvent>(OnFactoryUpgradesButtonPressedEventHandler);
+      EventManager.Instance.AddListener<NotEnoughMoneyEvent>(NotEnoughMoneyEventHandler);
+      EventManager.Instance.AddListener<MaxLevelUpgradeEvent>(MaxLevelUpgradeEventHandler);
+      EventManager.Instance.AddListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
     }
     #endregion
 
@@ -59,6 +66,20 @@ namespace SOG.GamePlayUi.Controllers
       view.SetActiveFacoryShopView(true);
     }
 
+    private void NotEnoughMoneyEventHandler(NotEnoughMoneyEvent eventDetails)
+    {
+      view.SetInformationText("Not enough money!");
+    }
+
+    private void MaxLevelUpgradeEventHandler(MaxLevelUpgradeEvent eventDetails)
+    {
+      view.SetInformationText("This upgrade is already max!");
+    }
+
+    private void ResetEndOfDayUiEventHandler(ResetEndOfDayUiEvent eventDetails)
+    {
+      view.SetMoneyText(eventDetails.money);
+    }
     #endregion
 
   }

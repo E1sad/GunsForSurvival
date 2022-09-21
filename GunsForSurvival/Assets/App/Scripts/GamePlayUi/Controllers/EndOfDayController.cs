@@ -6,6 +6,8 @@ using SOG.GamePlayUi.Events;
 using DynamicBox.EventManagement;
 using UnityEngine.SceneManagement;
 using SOG.GamePlay.EndOfDayManager;
+using SOG.GamePlay.DemandController;
+using SOG.GamePlay.MoneyAndUpgrade;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -16,6 +18,8 @@ namespace SOG.GamePlayUi.Controllers
 
     public void OnNextDayButtonPressed()
     {
+      view.SetDeactiveSuccessfulImage();
+      view.SetDeactiveFailedImage();
       view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnNextDayButtonPressendEvent());
     }
@@ -55,12 +59,20 @@ namespace SOG.GamePlayUi.Controllers
     {
       EventManager.Instance.AddListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
       EventManager.Instance.AddListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
+      EventManager.Instance.AddListener<GetDayEvent>(GetDayEventHandler);
+      EventManager.Instance.AddListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
+      EventManager.Instance.AddListener<DemandCompleteEvent>(DemandCompleteEventHandler);
+      EventManager.Instance.AddListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnShopsBackbuttonPressedEvent>(OnShopsBackbuttonPressedEventHandler);
       EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
+      EventManager.Instance.RemoveListener<GetDayEvent>(GetDayEventHandler);
+      EventManager.Instance.RemoveListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
+      EventManager.Instance.AddListener<DemandCompleteEvent>(DemandCompleteEventHandler);
+      EventManager.Instance.RemoveListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
     }
     #endregion
 
@@ -77,6 +89,38 @@ namespace SOG.GamePlayUi.Controllers
     {
       view.SetActiveEndOfDayView(true);
     }
+
+    private void GetDayEventHandler(GetDayEvent eventDetails)
+    {
+      view.SetDayCount(eventDetails.Day);
+    }
+
+    private void CurrentStatusOfUIEventHandler(CurrentStatusOfUIEvent eventDetails)
+    {
+      view.SetDailyDemand(eventDetails.Demand, eventDetails.CurrentGunAmount);
+    }
+
+    private void DemandCompleteEventHandler(DemandCompleteEvent eventDetails)
+    {
+      if (eventDetails.IsComplete)
+      {
+        view.SetActiveSuccessfulImage();
+        view.SetDeactiveFailedImage();
+      }
+      else
+      {
+        view.SetDeactiveSuccessfulImage();
+        view.SetActiveFailedImage();
+      }
+    }
+
+    private void ResetEndOfDayUiEventHandler(ResetEndOfDayUiEvent eventDetails)
+    {
+      view.SetAllMoney(eventDetails.money);
+      view.SetDailyGain(eventDetails.dailyMoney);
+    }
+
+
     #endregion
 
   }
