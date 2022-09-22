@@ -21,11 +21,14 @@ namespace SOG.GamePlay.Employee
     private void OnEnable()
     {
       EventManager.Instance.AddListener<newEmployeeEvent>(newEmployeeEventHandler);
+      EventManager.Instance.AddListener<ProduceSpeedEvent>(ProduceSpeedEventHandler);
+      
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<newEmployeeEvent>(newEmployeeEventHandler);
+      EventManager.Instance.AddListener<ProduceSpeedEvent>(ProduceSpeedEventHandler);
 
     }
 
@@ -40,6 +43,15 @@ namespace SOG.GamePlay.Employee
       {
         Employees[j].gameObject.SetActive(false);
       }
+    }
+
+    private void ProduceSpeedEventHandler(ProduceSpeedEvent eventDetails)
+    {
+      for (int j = 0; j < Employees.Length; j++)
+      {
+        Employees[j].ProduceSpeedUpgrade();
+      }
+
     }
   }
 }

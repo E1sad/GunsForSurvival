@@ -25,6 +25,8 @@ namespace SOG.GamePlay.Employee
 
     private int GunAmount;
 
+    [SerializeField] private float produceSpeed;
+
 
     #region Unity's Methods
     private void Start()
@@ -33,6 +35,7 @@ namespace SOG.GamePlay.Employee
       isProducable = true;
       IsContain = false;
       GunAmount = 0;
+      produceSpeed = 15f;
       this.enabled = false;
     }
 
@@ -217,7 +220,7 @@ namespace SOG.GamePlay.Employee
     {
       if (CheckGunResources() && isProducable && GunAmount < 3)
       {
-        Invoke("TakeResourcesForProduceGun", 5f);
+        Invoke("TakeResourcesForProduceGun", produceSpeed);
         isProducable = false;
       }
     }
@@ -237,6 +240,11 @@ namespace SOG.GamePlay.Employee
         i = -1;
       }
       //Debug.Log("---------------");
+    }
+
+    public void ProduceSpeedUpgrade()
+    {
+      produceSpeed -= 2;
     }
     #endregion
 

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SOG.GamePlay.Inventory;
+using DynamicBox.EventManagement;
 
 namespace SOG.Characters.Player
 {
@@ -53,6 +54,22 @@ namespace SOG.Characters.Player
     private void Update()
     {
       Movement();
+    }
+
+    private void OnEnable()
+    {
+      EventManager.Instance.AddListener<PlayerSpeedEvent>(PlayerSpeedEventHandler);
+    }
+
+    private void OnDisable()
+    {
+      EventManager.Instance.RemoveListener<PlayerSpeedEvent>(PlayerSpeedEventHandler);
+
+    }
+
+    private void PlayerSpeedEventHandler(PlayerSpeedEvent eventDetails)
+    {
+      speed += 100;
     }
   }
 }
