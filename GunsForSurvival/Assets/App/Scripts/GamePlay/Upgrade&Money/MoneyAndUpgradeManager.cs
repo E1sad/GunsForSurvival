@@ -1,5 +1,6 @@
 using DynamicBox.EventManagement;
 using SOG.Characters.Player;
+using SOG.GamePlay.BorderController;
 using SOG.GamePlay.DemandController;
 using SOG.GamePlay.Employee;
 using SOG.GamePlayUi.Events;
@@ -18,7 +19,9 @@ namespace SOG.GamePlay.MoneyAndUpgrade
     private int newEmployeeUpgradeLevel;
     private int playerSpeedLevel;
     private int produseSpeedLevel;
+    private int factorySizeLevel;
 
+    private int newEmployeeUpgradeLevelLimit;
 
     private void Start()
     {
@@ -27,6 +30,8 @@ namespace SOG.GamePlay.MoneyAndUpgrade
       newEmployeeUpgradeLevel = 0;
       playerSpeedLevel = 0;
       produseSpeedLevel = 0;
+      factorySizeLevel = 0;
+      newEmployeeUpgradeLevelLimit = 2;
     }
 
 
@@ -39,6 +44,7 @@ namespace SOG.GamePlay.MoneyAndUpgrade
       EventManager.Instance.AddListener<OnNewEmployeeButtonPressed>(OnNewEmployeeButtonPressedHandler);
       EventManager.Instance.AddListener<OnSpeedGymButtonPressedEvent>(OnSpeedGymButtonPressedEventHandler);
       EventManager.Instance.AddListener<OnEmployeeCourseButtonPressedEvent>(OnEmployeeCourseButtonPressedEventHandler);
+      EventManager.Instance.AddListener<OnFactorySizeButtonPressedEvent>(OnFactorySizeButtonPressedEventHandler);
 
       
     }
@@ -51,6 +57,8 @@ namespace SOG.GamePlay.MoneyAndUpgrade
       EventManager.Instance.RemoveListener<OnNewEmployeeButtonPressed>(OnNewEmployeeButtonPressedHandler);
       EventManager.Instance.RemoveListener<OnSpeedGymButtonPressedEvent>(OnSpeedGymButtonPressedEventHandler);
       EventManager.Instance.RemoveListener<OnEmployeeCourseButtonPressedEvent>(OnEmployeeCourseButtonPressedEventHandler);
+      EventManager.Instance.AddListener<OnFactorySizeButtonPressedEvent>(OnFactorySizeButtonPressedEventHandler);
+
     }
     #endregion
 
@@ -77,7 +85,7 @@ namespace SOG.GamePlay.MoneyAndUpgrade
         {
           EventManager.Instance.Raise(new NotEnoughMoneyEvent());
         }
-        else if (satisfactoryUpgradeLevel >= 5)
+        else if (satisfactoryUpgradeLevel > 5)
         {
           EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
         }
@@ -86,7 +94,7 @@ namespace SOG.GamePlay.MoneyAndUpgrade
 
     private void OnNewEmployeeButtonPressedHandler(OnNewEmployeeButtonPressed eventDetails)
     {
-      if (money >= 120 && newEmployeeUpgradeLevel < 7)
+      if (money >= 120 && newEmployeeUpgradeLevel < newEmployeeUpgradeLevelLimit)
       {
         EventManager.Instance.Raise(new newEmployeeEvent());
         money -= 120;
@@ -99,9 +107,17 @@ namespace SOG.GamePlay.MoneyAndUpgrade
         {
           EventManager.Instance.Raise(new NotEnoughMoneyEvent());
         }
-        else if (newEmployeeUpgradeLevel >= 7)
+        else if (newEmployeeUpgradeLevel >= newEmployeeUpgradeLevelLimit)
         {
-          EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
+          if (newEmployeeUpgradeLevel >= 7)
+          {
+            EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
+          }
+          else if (newEmployeeUpgradeLevel >= 2)
+          {
+            EventManager.Instance.Raise(new MaxEmployeeInFactoryEvent());
+            
+          }
           //Debug.Log(newEmployeeUpgradeLevel);
         }
       }
@@ -152,6 +168,31 @@ namespace SOG.GamePlay.MoneyAndUpgrade
         }
       }
     }
+
+    private void OnFactorySizeButtonPressedEventHandler(OnFactorySizeButtonPressedEvent eventDetails)
+    {
+      if (money >= 400 && factorySizeLevel < 1)
+      {
+        EventManager.Instance.Raise(new BorderUpgradeEvent());
+        money -= 400;
+        factorySizeLevel++;
+        newEmployeeUpgradeLevelLimit = 7;
+        EventManager.Instance.Raise(new ResetEndOfDayUiEvent(money, dailyMoney));
+      }
+      else
+      {
+        if (money < 400)
+        {
+          EventManager.Instance.Raise(new NotEnoughMoneyEvent());
+        }
+        else if (factorySizeLevel >= 1)
+        {
+          EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
+          //Debug.Log(newEmployeeUpgradeLevel);
+        }
+      }
+    }
+
 
 
     #endregion

@@ -49,14 +49,18 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<NotEnoughMoneyEvent>(NotEnoughMoneyEventHandler);
       EventManager.Instance.AddListener<MaxLevelUpgradeEvent>(MaxLevelUpgradeEventHandler);
       EventManager.Instance.AddListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
+      EventManager.Instance.AddListener<MaxEmployeeInFactoryEvent>(MaxEmployeeInFactoryEventHandler);
+
+
     }
 
     private void OnDisable()
     {
       EventManager.Instance.RemoveListener<OnFactoryUpgradesButtonPressedEvent>(OnFactoryUpgradesButtonPressedEventHandler);
-      EventManager.Instance.AddListener<NotEnoughMoneyEvent>(NotEnoughMoneyEventHandler);
-      EventManager.Instance.AddListener<MaxLevelUpgradeEvent>(MaxLevelUpgradeEventHandler);
-      EventManager.Instance.AddListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
+      EventManager.Instance.RemoveListener<NotEnoughMoneyEvent>(NotEnoughMoneyEventHandler);
+      EventManager.Instance.RemoveListener<MaxLevelUpgradeEvent>(MaxLevelUpgradeEventHandler);
+      EventManager.Instance.RemoveListener<ResetEndOfDayUiEvent>(ResetEndOfDayUiEventHandler);
+      EventManager.Instance.RemoveListener<MaxEmployeeInFactoryEvent>(MaxEmployeeInFactoryEventHandler);
     }
     #endregion
 
@@ -79,6 +83,11 @@ namespace SOG.GamePlayUi.Controllers
     private void ResetEndOfDayUiEventHandler(ResetEndOfDayUiEvent eventDetails)
     {
       view.SetMoneyText(eventDetails.money);
+    }
+
+    private void MaxEmployeeInFactoryEventHandler(MaxEmployeeInFactoryEvent eventDetails)
+    {
+      view.SetInformationText("You need to upgrade size of factory first!");
     }
     #endregion
 
