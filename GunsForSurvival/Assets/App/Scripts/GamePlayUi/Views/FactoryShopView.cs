@@ -49,6 +49,12 @@ namespace SOG.GamePlayUi.Views
     public void SetInformationText(string information)
     {
       informationText.text = "" + information;
+      Invoke("ResetInfromationText", 2f);
+    }
+
+    private void ResetInfromationText()
+    {
+      informationText.text = "";
     }
 
     public void SetMoneyText(int _money)
