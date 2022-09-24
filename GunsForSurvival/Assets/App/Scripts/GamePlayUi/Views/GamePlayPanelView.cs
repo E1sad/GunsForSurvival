@@ -46,6 +46,11 @@ namespace SOG.GamePlayUi.Views
       controller.TakeGunButtonPressed();
     }
 
+    public void OnSettingsButtonPressed()
+    {
+      controller.OnSettingsButtonPressed();
+    }
+
     public void SetActivePanel(bool active)
     {
       gameObject.SetActive(active);

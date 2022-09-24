@@ -34,7 +34,7 @@ namespace SOG.GamePlayUi.Controllers
 
     public void OnSettingsButtonPressed()
     {
-      view.SetActiveEndOfDayView(false);
+      //view.SetActiveEndOfDayView(false);
       EventManager.Instance.Raise(new OnSettingsButtonPressedEvent());
       Debug.Log("Settings!!!");
     }

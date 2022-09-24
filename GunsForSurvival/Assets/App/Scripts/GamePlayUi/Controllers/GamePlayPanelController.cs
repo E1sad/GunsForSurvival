@@ -13,6 +13,7 @@ using SOG.GamePlay.Employee;
 using SOG.GamePlay;
 using SOG.GamePlay.DemandController;
 using SOG.GamePlay.EndOfDayManager;
+using SOG.SettingsPanel;
 
 namespace SOG.GamePlayUi.Controllers
 {
@@ -48,6 +49,12 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.Raise(new GunAmountRequestEvent());
     }
 
+    public void OnSettingsButtonPressed()
+    {
+      EventManager.Instance.Raise(new OnSettingsButtonPressed());
+      //view.SetActivePanel(false);
+    }
+
     public void DeactiveButtons()
     {
       view.ButtonSetActive("Employee", false);
@@ -70,7 +77,9 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
       EventManager.Instance.AddListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
       EventManager.Instance.AddListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
+      EventManager.Instance.AddListener<OnResumeButtonPressedEvent>(OnResumeButtonPressedEventHandler);
     }
+    
 
     private void OnDisable()
     {
@@ -84,6 +93,7 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.RemoveListener<CurrentStatusOfUIEvent>(CurrentStatusOfUIEventHandler);
       EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
       EventManager.Instance.RemoveListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
+      EventManager.Instance.RemoveListener<OnResumeButtonPressedEvent>(OnResumeButtonPressedEventHandler);
     }
     #endregion
 
@@ -140,6 +150,11 @@ namespace SOG.GamePlayUi.Controllers
     }
 
     private void OnNextDayButtonPressendEventHandler(OnNextDayButtonPressendEvent eventDetails)
+    {
+      view.SetActivePanel(true);
+    }
+
+    private void OnResumeButtonPressedEventHandler(OnResumeButtonPressedEvent eventDetails)
     {
       view.SetActivePanel(true);
     }

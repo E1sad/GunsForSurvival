@@ -253,6 +253,7 @@ namespace SOG.GamePlay.Employee
     {
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.AddListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
+      EventManager.Instance.AddListener<CheckBenchResources>(CheckBenchResourcesHandler);
       
     }
 
@@ -260,7 +261,7 @@ namespace SOG.GamePlay.Employee
     {
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
-
+      EventManager.Instance.RemoveListener<CheckBenchResources>(CheckBenchResourcesHandler);
     }
     #endregion
 
@@ -283,7 +284,12 @@ namespace SOG.GamePlay.Employee
       }
     }
 
+
+    private void CheckBenchResourcesHandler(CheckBenchResources eventDetails)
+    {
+      checkBecnhResources();
+    }
       #endregion
 
-    }
+  }
 }

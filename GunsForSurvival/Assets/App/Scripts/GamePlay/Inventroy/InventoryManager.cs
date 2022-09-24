@@ -13,6 +13,9 @@ namespace SOG.GamePlay.Inventory
 {
   public class InventoryManager : MonoBehaviour
   {
+    [SerializeField] AudioClip onTakeClip, onGiveClip;
+
+
     private bool WoodResource;
     private bool IronResource;
     private bool AluminumResource;
@@ -37,6 +40,8 @@ namespace SOG.GamePlay.Inventory
         EventManager.Instance.Raise(new FullResourceEvent(inventory.GetItemList()[j].GetItemType(), true));
         EventManager.Instance.Raise(new InventoryItemContainerEvent(inventory.GetItemList()[j].GetItemType(), inventory.GetItemList()[j].GetAmount()));
       }
+      EventManager.Instance.Raise(new CheckBenchResources());
+
     }
 
 
@@ -68,11 +73,13 @@ namespace SOG.GamePlay.Inventory
     #region Events Handlers
     private void OnTakeEventHandler(OnTakeEvent eventDetails)
     {
+      SoundManager.Instance.PlaySound(onTakeClip);
       inventory.AddItem(eventDetails.item, eventDetails.amount);
     }
 
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
     {
+      SoundManager.Instance.PlaySound(onGiveClip);
       inventory.RemoveItem(eventDetails.item, eventDetails.amount);
       EventManager.Instance.Raise(new InventoryResetEvent());
       CheckResoruce();
