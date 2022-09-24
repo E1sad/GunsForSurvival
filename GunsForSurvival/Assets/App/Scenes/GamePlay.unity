@@ -9586,7 +9586,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc911348cad79594d9ab6f96c2196b6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DayTime: 150
+  DayTime: 200
 --- !u!1 &982816335
 GameObject:
   m_ObjectHideFlags: 0
@@ -14407,7 +14407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: {fileID: 1525234492}
   timerText: {fileID: 2067735609}
-  _time: 0
+  _time: 200
 --- !u!1 &1651310023
 GameObject:
   m_ObjectHideFlags: 0
