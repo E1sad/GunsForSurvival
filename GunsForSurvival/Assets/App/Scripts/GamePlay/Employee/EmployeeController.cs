@@ -254,7 +254,7 @@ namespace SOG.GamePlay.Employee
       EventManager.Instance.AddListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.AddListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
       EventManager.Instance.AddListener<CheckBenchResources>(CheckBenchResourcesHandler);
-      
+      EventManager.Instance.AddListener<IsInLimitEvent>(IsInLimitEventHandler);
     }
 
     private void OnDisable()
@@ -262,6 +262,7 @@ namespace SOG.GamePlay.Employee
       EventManager.Instance.RemoveListener<OnGiveEvent>(OnGiveEventHandler);
       EventManager.Instance.RemoveListener<GunAmountRequestEvent>(GunAmountRequestEventHandler);
       EventManager.Instance.RemoveListener<CheckBenchResources>(CheckBenchResourcesHandler);
+      EventManager.Instance.RemoveListener<IsInLimitEvent>(IsInLimitEventHandler);
     }
     #endregion
 
@@ -274,20 +275,34 @@ namespace SOG.GamePlay.Employee
 
     private void GunAmountRequestEventHandler(GunAmountRequestEvent eventDetails)
     {
-      if (GunAmount > 0)
-      {
-          RemoveItem(ItemType.GUN, 1);
-          GunAmount--;
-          checkBecnhResources();
-        EventManager.Instance.Raise(new CheckResourcesEvent());
-        EventManager.Instance.Raise(new OnTakeEvent(ItemType.GUN, 1));
-      }
+      EventManager.Instance.Raise(new CheckLimitEvent());
     }
 
 
     private void CheckBenchResourcesHandler(CheckBenchResources eventDetails)
     {
       checkBecnhResources();
+    }
+
+    private void IsInLimitEventHandler(IsInLimitEvent eventDetails)
+    {
+      if (eventDetails.IsInLimit)
+      {
+        if (GunAmount > 0)
+        {
+          RemoveItem(ItemType.GUN, 1);
+          GunAmount--;
+          checkBecnhResources();
+          EventManager.Instance.Raise(new CheckResourcesEvent());
+          EventManager.Instance.Raise(new OnTakeEvent(ItemType.GUN, 1));
+        }
+      }
+
+      else if (!eventDetails.IsInLimit)
+      {
+
+      }
+
     }
       #endregion
 

@@ -15,6 +15,7 @@ namespace SOG.GamePlay.Inventory
   {
     [SerializeField] AudioClip onTakeClip, onGiveClip;
 
+    [SerializeField] private int limit;
 
     private bool WoodResource;
     private bool IronResource;
@@ -45,6 +46,25 @@ namespace SOG.GamePlay.Inventory
     }
 
 
+    private bool BagLimit()
+    {
+      int currentLimmit = 0;
+      for (int i = 0; i < inventory.GetItemList().Count; i++)
+      {
+        currentLimmit += inventory.GetItemList()[i].GetAmount();
+      }
+
+      if (currentLimmit < limit)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+
+
     #region Unity Events
     private void OnEnable()
     {
@@ -55,6 +75,8 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.AddListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
       EventManager.Instance.AddListener<CheckResourcesEvent>(CheckResourcesEventHandler);
       EventManager.Instance.AddListener<TakeGunEvent>(TakeGunEventHandler);
+      EventManager.Instance.AddListener<CheckLimitEvent>(CheckLimitEventHandler);
+      
     }
 
     private void OnDisable()
@@ -66,6 +88,7 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.RemoveListener<InventoryItemDeleteEvent>(InventoryItemDeleteEventHandler);
       EventManager.Instance.RemoveListener<CheckResourcesEvent>(CheckResourcesEventHandler);
       EventManager.Instance.RemoveListener<TakeGunEvent>(TakeGunEventHandler);
+      EventManager.Instance.RemoveListener<CheckLimitEvent>(CheckLimitEventHandler);
     }
 
     #endregion
@@ -73,8 +96,15 @@ namespace SOG.GamePlay.Inventory
     #region Events Handlers
     private void OnTakeEventHandler(OnTakeEvent eventDetails)
     {
-      SoundManager.Instance.PlaySound(onTakeClip);
-      inventory.AddItem(eventDetails.item, eventDetails.amount);
+      if (BagLimit())
+      {
+        SoundManager.Instance.PlaySound(onTakeClip);
+        inventory.AddItem(eventDetails.item, eventDetails.amount);
+      }
+      else if (!BagLimit())
+      {
+        EventManager.Instance.Raise(new BagIsFullEvent());
+      }
     }
 
     private void OnGiveEventHandler(OnGiveEvent eventDetails)
@@ -125,6 +155,19 @@ namespace SOG.GamePlay.Inventory
         {
           EventManager.Instance.Raise(new GunCheckInventoryEvent(false));
         }
+      }
+    }
+
+    private void CheckLimitEventHandler(CheckLimitEvent eventDetails)
+    {
+      if (BagLimit())
+      {
+        EventManager.Instance.Raise(new IsInLimitEvent(true));
+      }
+      else if(!BagLimit())
+      {
+        EventManager.Instance.Raise(new BagIsFullEvent());
+        EventManager.Instance.Raise(new IsInLimitEvent(false));
       }
     }
     #endregion

@@ -20,6 +20,7 @@ namespace SOG.GamePlayUi.Views
     [SerializeField] private Button fetchGunButton;
 
     [SerializeField] private TMP_Text demandAndCurrentAmount;
+    [SerializeField] private TMP_Text LimitText;
 
     public void BagButtonPressed()
     {
@@ -81,6 +82,17 @@ namespace SOG.GamePlayUi.Views
     public void SetDemandAndCurrentAmount(int currentAmount, int demand)
     {
       demandAndCurrentAmount.text = "" + currentAmount + "/" + demand;
+    }
+
+    public void BagLimitIsFull()
+    {
+      LimitText.gameObject.SetActive(true);
+      Invoke("SetDeactiveLimitText", 2f);
+    }
+
+    private void SetDeactiveLimitText()
+    {
+      LimitText.gameObject.SetActive(false);
     }
   }
 }

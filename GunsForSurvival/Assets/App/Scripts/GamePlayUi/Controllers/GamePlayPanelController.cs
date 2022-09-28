@@ -78,6 +78,7 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.AddListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
       EventManager.Instance.AddListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
       EventManager.Instance.AddListener<OnResumeButtonPressedEvent>(OnResumeButtonPressedEventHandler);
+      EventManager.Instance.AddListener<BagIsFullEvent>(BagIsFullEventHandler);
     }
     
 
@@ -94,6 +95,7 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.RemoveListener<EndOfDayMessageEvent>(EndOfDayMessageEventHandler);
       EventManager.Instance.RemoveListener<OnNextDayButtonPressendEvent>(OnNextDayButtonPressendEventHandler);
       EventManager.Instance.RemoveListener<OnResumeButtonPressedEvent>(OnResumeButtonPressedEventHandler);
+      EventManager.Instance.RemoveListener<BagIsFullEvent>(BagIsFullEventHandler);
     }
     #endregion
 
@@ -157,6 +159,11 @@ namespace SOG.GamePlayUi.Controllers
     private void OnResumeButtonPressedEventHandler(OnResumeButtonPressedEvent eventDetails)
     {
       view.SetActivePanel(true);
+    }
+
+    private void BagIsFullEventHandler(BagIsFullEvent eventDetails)
+    {
+      view.BagLimitIsFull();
     }
       #endregion
   }
