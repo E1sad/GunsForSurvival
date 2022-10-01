@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 
 
   [SerializeField] private AudioSource musicSource, soundSource;
-  [SerializeField] private AudioClip BackgroundMusic, TakeSFX, GiveSFX;
+  [SerializeField] private AudioClip BackgroundMusic;
 
   private void Awake()
   {
@@ -36,6 +36,18 @@ public class SoundManager : MonoBehaviour
 
   public void ChangeMasterVolume(float volume)
   {
+    Debug.Log(volume);
     AudioListener.volume = volume;
+  }
+
+  public void ChangeMusicVolume(float volume)
+  {
+    Debug.Log(volume);
+    musicSource.volume = volume;
+  }
+
+  public void ChangeSoundVolume(float volume)
+  {
+    soundSource.volume = volume;
   }
 }
