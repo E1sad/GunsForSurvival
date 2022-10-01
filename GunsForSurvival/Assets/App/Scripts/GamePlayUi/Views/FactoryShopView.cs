@@ -32,10 +32,10 @@ namespace SOG.GamePlayUi.Views
       controller.OnEmployeeCourseButtonPressed();
     }
 
-    public void OnBagButtonPressed()
-    {
-      controller.OnBagButtonPressed();
-    }
+    //public void OnBagButtonPressed()
+    //{
+    //  controller.OnBagButtonPressed();
+    //}
 
     public void OnFactorySizeButtonPressed()
     {

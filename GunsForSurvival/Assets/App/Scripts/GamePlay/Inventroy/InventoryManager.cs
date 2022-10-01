@@ -76,7 +76,7 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.AddListener<CheckResourcesEvent>(CheckResourcesEventHandler);
       EventManager.Instance.AddListener<TakeGunEvent>(TakeGunEventHandler);
       EventManager.Instance.AddListener<CheckLimitEvent>(CheckLimitEventHandler);
-      
+      EventManager.Instance.AddListener<IncreaseBagLimitEvent>(IncreaseBagLimitEventHandler);
     }
 
     private void OnDisable()
@@ -89,6 +89,7 @@ namespace SOG.GamePlay.Inventory
       EventManager.Instance.RemoveListener<CheckResourcesEvent>(CheckResourcesEventHandler);
       EventManager.Instance.RemoveListener<TakeGunEvent>(TakeGunEventHandler);
       EventManager.Instance.RemoveListener<CheckLimitEvent>(CheckLimitEventHandler);
+      EventManager.Instance.RemoveListener<IncreaseBagLimitEvent>(IncreaseBagLimitEventHandler);
     }
 
     #endregion
@@ -169,6 +170,11 @@ namespace SOG.GamePlay.Inventory
         EventManager.Instance.Raise(new BagIsFullEvent());
         EventManager.Instance.Raise(new IsInLimitEvent(false));
       }
+    }
+
+    private void IncreaseBagLimitEventHandler(IncreaseBagLimitEvent eventDetails)
+    {
+      limit += 10;
     }
     #endregion
   }

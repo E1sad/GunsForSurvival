@@ -12,6 +12,10 @@ namespace SOG.GamePlay.PlayerTable
     [SerializeField] private GameObject timer;
     [SerializeField] private TMP_Text timerText;
     [SerializeField] private float _time;
+
+    private float second;
+    private float minute;
+    private float Generalsecond;
     private float time;
 
     private void Start()
@@ -20,20 +24,14 @@ namespace SOG.GamePlay.PlayerTable
       time = _time;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-      timer.SetActive(true);
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-      timer.SetActive(false);
-    }
-
     private void Update()
     {
       time -= Time.deltaTime;
-      timerText.text = Mathf.Round(time).ToString();
+      Generalsecond = Mathf.Round(time);
+
+      minute = Mathf.Round(Generalsecond / 60);
+      second = Generalsecond % 60;
+      timerText.text = minute.ToString() + ":" + second;
     }
 
 

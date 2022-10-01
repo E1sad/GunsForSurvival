@@ -31,10 +31,10 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.Raise(new OnEmployeeCourseButtonPressedEvent());
     }
 
-    public void OnBagButtonPressed()
-    {
-      EventManager.Instance.Raise(new OnBagButtonPressed());
-    }
+    //public void OnBagButtonPressed()
+    //{
+      
+    //}
 
     public void OnFactorySizeButtonPressed()
     {

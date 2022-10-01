@@ -35,6 +35,11 @@ namespace SOG.GamePlayUi.Controllers
       EventManager.Instance.Raise(new OnSatisfactoryCourseButtonPressedEvent());
     }
 
+    public void OnBagLimitButtonPressed()
+    {
+      EventManager.Instance.Raise(new OnBagButtonPressed());
+    }
+
     public void OnManagementButtonPressed()
     {
       EventManager.Instance.Raise(new OnManagementCourseButtonPressedEvent());

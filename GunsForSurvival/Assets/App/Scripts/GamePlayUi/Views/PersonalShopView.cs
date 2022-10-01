@@ -40,6 +40,11 @@ namespace SOG.GamePlayUi.Views
       controller.OnManagementButtonPressed();
     }
 
+    public void OnBagLimitButtonPressed()
+    {
+      controller.OnBagLimitButtonPressed();
+    }
+
     public void SetActivePersonalShopView(bool Is)
     {
       gameObject.SetActive(Is);

@@ -3,6 +3,7 @@ using SOG.Characters.Player;
 using SOG.GamePlay.BorderController;
 using SOG.GamePlay.DemandController;
 using SOG.GamePlay.Employee;
+using SOG.GamePlay.Inventory;
 using SOG.GamePlayUi.Events;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,18 +21,20 @@ namespace SOG.GamePlay.MoneyAndUpgrade
     private int playerSpeedLevel;
     private int produseSpeedLevel;
     private int factorySizeLevel;
+    private int bagLimitSizeLevel;
 
     private int newEmployeeUpgradeLevelLimit;
 
     private void Start()
     {
-      money = 0;
+      money = 10000;
       satisfactoryUpgradeLevel = 0;
       newEmployeeUpgradeLevel = 0;
       playerSpeedLevel = 0;
       produseSpeedLevel = 0;
       factorySizeLevel = 0;
       newEmployeeUpgradeLevelLimit = 2;
+      bagLimitSizeLevel = 0;
     }
 
 
@@ -45,7 +48,7 @@ namespace SOG.GamePlay.MoneyAndUpgrade
       EventManager.Instance.AddListener<OnSpeedGymButtonPressedEvent>(OnSpeedGymButtonPressedEventHandler);
       EventManager.Instance.AddListener<OnEmployeeCourseButtonPressedEvent>(OnEmployeeCourseButtonPressedEventHandler);
       EventManager.Instance.AddListener<OnFactorySizeButtonPressedEvent>(OnFactorySizeButtonPressedEventHandler);
-
+      EventManager.Instance.AddListener<OnBagButtonPressed>(OnBagButtonPressedHandler);
       
     }
 
@@ -57,8 +60,8 @@ namespace SOG.GamePlay.MoneyAndUpgrade
       EventManager.Instance.RemoveListener<OnNewEmployeeButtonPressed>(OnNewEmployeeButtonPressedHandler);
       EventManager.Instance.RemoveListener<OnSpeedGymButtonPressedEvent>(OnSpeedGymButtonPressedEventHandler);
       EventManager.Instance.RemoveListener<OnEmployeeCourseButtonPressedEvent>(OnEmployeeCourseButtonPressedEventHandler);
-      EventManager.Instance.AddListener<OnFactorySizeButtonPressedEvent>(OnFactorySizeButtonPressedEventHandler);
-
+      EventManager.Instance.RemoveListener<OnFactorySizeButtonPressedEvent>(OnFactorySizeButtonPressedEventHandler);
+      EventManager.Instance.RemoveListener<OnBagButtonPressed>(OnBagButtonPressedHandler);
     }
     #endregion
 
@@ -189,6 +192,28 @@ namespace SOG.GamePlay.MoneyAndUpgrade
         {
           EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
           //Debug.Log(newEmployeeUpgradeLevel);
+        }
+      }
+    }
+
+    private void OnBagButtonPressedHandler(OnBagButtonPressed eventDetails)
+    {
+      if (money >= 60 && bagLimitSizeLevel < 5)
+      {
+        EventManager.Instance.Raise(new IncreaseBagLimitEvent());
+        money -= 60;
+        bagLimitSizeLevel++;
+        EventManager.Instance.Raise(new ResetEndOfDayUiEvent(money, dailyMoney));
+      }
+      else
+      {
+        if (money < 60)
+        {
+          EventManager.Instance.Raise(new NotEnoughMoneyEvent());
+        }
+        else if (bagLimitSizeLevel >= 5)
+        {
+          EventManager.Instance.Raise(new MaxLevelUpgradeEvent());
         }
       }
     }

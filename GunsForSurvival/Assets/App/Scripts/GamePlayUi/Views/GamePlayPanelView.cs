@@ -20,7 +20,7 @@ namespace SOG.GamePlayUi.Views
     [SerializeField] private Button fetchGunButton;
 
     [SerializeField] private TMP_Text demandAndCurrentAmount;
-    [SerializeField] private TMP_Text LimitText;
+    [SerializeField] private GameObject LimitText;
 
     public void BagButtonPressed()
     {
